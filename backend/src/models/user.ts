@@ -7,7 +7,7 @@ interface IUser extends Document {
   bio?: string;
 }
 
-const UserSchema: Schema<IUser> = new mongoose.Schema({
+const userSchema: Schema<IUser> = new mongoose.Schema({
   userName: {
     type: String,
     unique: [true, "Username already taken"],
@@ -48,4 +48,4 @@ const UserSchema: Schema<IUser> = new mongoose.Schema({
   },
 });
 
-export const User: Model<IUser> = mongoose.model("User", UserSchema);
+export const User: Model<IUser> = mongoose.model("User", userSchema);

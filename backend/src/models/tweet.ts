@@ -6,7 +6,7 @@ interface ITweet extends Document {
   image?: string;
   likes?: mongoose.Types.ObjectId[];
   comments?: mongoose.Types.ObjectId[];
-  hashtag?: mongoose.Types.ObjectId[];
+  hashtags?: mongoose.Types.ObjectId[];
 }
 
 const tweetSchema: Schema<ITweet> = new mongoose.Schema({
@@ -20,7 +20,7 @@ const tweetSchema: Schema<ITweet> = new mongoose.Schema({
     maxLength: [270, "Maximum Allowed Characters is 270"],
     required: [true, "Tweet content  is Required"],
   },
-  hashtag: [
+  hashtags: [
     {
       type: Schema.Types.ObjectId,
       ref: "HashTag",

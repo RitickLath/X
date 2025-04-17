@@ -70,3 +70,5 @@
 20. **Analytics for A/B Testing** – Capture performance data in company DB.
 21. **Sharding or Partitioning (v2)** – Scale the DB layer for high availability.
 
+## Database Design ()
+![alt text](image.png)
