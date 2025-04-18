@@ -1,0 +1,9 @@
+export { authRouter } from "./auth.route";
+export { commentRouter } from "./comment.route";
+export { feedRouter } from "./feed.route";
+export { likeRouter } from "./like.route";
+export { mediaRouter } from "./media.route";
+export { notificationRouter } from "./notification.route";
+export { searchRouter } from "./search.route";
+export { tweetRouter } from "./tweet.route";
+export { userRouter } from "./user.route";
