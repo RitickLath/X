@@ -159,11 +159,6 @@ https://excalidraw.com/#json=bZkg8R8HhHbd62LNmxC4m,ETP89q5iti7MfGtY7PZqog
    /api/users/:userId/tweets
    ```
 
-4. **Get detailed tweet by ID** (GET)
-   ```
-   /api/tweets/:tweetId
-   ```
-
 ### Comment APIs
 
 1. **Comment on a tweet** (POST)

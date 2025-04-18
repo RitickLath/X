@@ -5,10 +5,14 @@ const authController = new AuthController();
 
 export const authRouter = express.Router();
 
+// signup
 authRouter.get("/signup", authController.signupController);
 
-authRouter.post("/signup", authController.signinController);
+// signin
+authRouter.post("/login", authController.signinController);
 
-authRouter.post("/signup", authController.updateController);
+// update profile
+authRouter.post("/update", authController.updateController);
 
-authRouter.post("/signup", authController.forgetController);
+// forget password
+authRouter.post("/forget", authController.forgetController);
