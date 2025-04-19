@@ -10,7 +10,7 @@ interface IUser extends Document {
 const userSchema: Schema<IUser> = new mongoose.Schema({
   username: {
     type: String,
-    // unique: [true, "Username already taken"],
+    unique: [true, "Username already taken"],
     maxLength: [20, "Maximum character length is 20"],
     required: [true, "Username is required"],
   },

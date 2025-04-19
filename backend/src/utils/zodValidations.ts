@@ -20,3 +20,8 @@ export const SignUpDataSanitization = z.object({
     .min(3, { message: "Username must be at least 3 characters long." })
     .max(20, { message: "Username cannot exceed 20 characters." }),
 });
+
+export const SignInDataSanitization = z.object({
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  password: z.string(),
+});

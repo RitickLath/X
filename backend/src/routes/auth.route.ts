@@ -9,7 +9,7 @@ export const authRouter = express.Router();
 authRouter.post("/signup", authController.signupController);
 
 // signin
-//authRouter.post("/login", authController.signinController);
+authRouter.post("/signin", authController.signinController);
 
 // update profile
 //authRouter.post("/update", authController.updateController);

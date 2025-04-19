@@ -10,6 +10,9 @@ import {
   tweetRouter,
   userRouter,
 } from "./routes";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const app: Application = express();
 

@@ -4,7 +4,7 @@ import { User } from "../models";
 // establishing database connection.
 export const databaseConnect = async () => {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/myapp");
+    await mongoose.connect(process.env.MONGODBURI as string);
 
     console.log("database Connected Successfully");
   } catch (error) {
@@ -12,4 +12,3 @@ export const databaseConnect = async () => {
     throw error;
   }
 };
-
