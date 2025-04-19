@@ -1,9 +1,12 @@
 import express from "express";
+import { TweetController } from "../controller/tweet.controller";
 
 export const tweetRouter = express.Router();
 
+const tweetController = new TweetController();
+
 // Create a tweet
-tweetRouter.post("/", (req, res) => {});
+tweetRouter.post("/", tweetController.tweetPostController);
 
 // Retweet a tweet
 tweetRouter.post("/:tweetId/retweet", (req, res) => {});
