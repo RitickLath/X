@@ -2,7 +2,7 @@ import { User } from "../models";
 
 export default class AuthRepository {
   //Create a new user
-  async signup(
+  async createUser(
     email: string,
     hashedPassword: string,
     username: string

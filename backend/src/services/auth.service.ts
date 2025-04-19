@@ -38,7 +38,7 @@ export default class AuthService {
       console.log("Service Layer: Step-4");
 
       // Step 5: Create the user record in the database
-      await authRepository.signup(email, hashedPassword, username);
+      await authRepository.createUser(email, hashedPassword, username);
       console.log("Service Layer: Step-5");
 
       // Step 6: Return success response
