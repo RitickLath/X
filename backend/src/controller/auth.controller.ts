@@ -1,44 +1,24 @@
 import { Request, Response } from "express";
 import AuthService from "../services/auth.service";
+import { Isignup } from "../utils";
 
 const authService = new AuthService();
 
 export default class AuthController {
   async signupController(req: Request, res: Response) {
     try {
-      // Make database call
-      authService.signupService();
-      res.status(200).json({ success: true });
-    } catch (error) {
-      console.log("Error From Auth Controller" + error);
-      res.status(401).json({ success: false });
-    }
-  }
+      // Step 1: Extract data from Body
+      const { username, email, password }: Isignup = req.body;
+      console.log("Controller Layer: Step-1");
 
-  async signinController(req: Request, res: Response) {
-    try {
-      // Make database call
-    } catch (error) {
-      console.log("Error From Auth Controller");
-      res.status(401).json({ success: false });
-    }
-  }
+      // Step-2: Pass Data to Service Layer for allpying business logics
+      const result = await authService.signupService(username, email, password);
+      console.log("Controller Layer: Step-2");
 
-  async updateController(req: Request, res: Response) {
-    try {
-      // Make database call
-    } catch (error) {
-      console.log("Error From Auth Controller");
-      res.status(401).json({ success: false });
-    }
-  }
-
-  async forgetController(req: Request, res: Response) {
-    try {
-      // Make database call
-    } catch (error) {
-      console.log("Error From Auth Controller");
-      res.status(401).json({ success: false });
+      res.status(result.success ? 200 : 400).json(result);
+    } catch (error: any) {
+      console.error("Error in AuthController - Signup:", error.message);
+      res.status(500).json({ success: false, message: error.message });
     }
   }
 }

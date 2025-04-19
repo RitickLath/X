@@ -1,39 +1,37 @@
+import { User } from "../models";
+
 export default class AuthRepository {
-  async signup() {
+  //Create a new user
+  async signup(
+    email: string,
+    hashedPassword: string,
+    username: string
+  ): Promise<boolean> {
     try {
-      // Make database call
-      console.log("hi");
-      return;
-    } catch (error) {
-      console.log("Error From Auth Repository");
-      throw new Error("Repository: Failed to make DB Call");
+      const data = await User.create({
+        email,
+        password: hashedPassword,
+        username,
+      });
+      if (data) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error: any) {
+      console.error("Repository Error (signup):", error.message);
+      throw new Error("Repository: Failed to create user");
     }
   }
 
-  async signin() {
+  //Check if email already exists
+  async checkForEmailUsername(email: string, username: string): Promise<boolean> {
     try {
-      // Make database call
-    } catch (error) {
-      console.log("Error From Auth Repository");
-      throw new Error("Repository: Failed to make DB Call");
-    }
-  }
-
-  async update() {
-    try {
-      // Make database call
-    } catch (error) {
-      console.log("Error From Auth Repository");
-      throw new Error("Repository: Failed to make DB Call");
-    }
-  }
-
-  async forget() {
-    try {
-      // Make database call
-    } catch (error) {
-      console.log("Error From Auth Repository");
-      throw new Error("Repository: Failed to make DB Call");
+      const user = await User.findOne({ $or: [{ email }, { username }] });
+      return !!user; // returns true if user exists
+    } catch (error: any) {
+      console.error("Repository Error (Check Email)", error.message);
+      throw new Error("Repository: Failed to check for email");
     }
   }
 }

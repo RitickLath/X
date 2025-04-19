@@ -1,16 +1,16 @@
 import mongoose, { Model, Schema, Document, ValidatorProps } from "mongoose";
 
 interface IUser extends Document {
-  userName: string;
+  username: string;
   email: string;
   password: string;
   bio?: string;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
-  userName: {
+  username: {
     type: String,
-    unique: [true, "Username already taken"],
+    // unique: [true, "Username already taken"],
     maxLength: [20, "Maximum character length is 20"],
     required: [true, "Username is required"],
   },
@@ -31,8 +31,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   },
   password: {
     type: String,
-    minLength: [8, "Password must be at least 8 characters"],
-    maxLength: [16, "Password must be less than 16 characters"],
     validate: {
       validator: function (v: string): boolean {
         return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[#?!@$%^&*-]).{8,}$/.test(

@@ -6,13 +6,13 @@ const authController = new AuthController();
 export const authRouter = express.Router();
 
 // signup
-authRouter.get("/signup", authController.signupController);
+authRouter.post("/signup", authController.signupController);
 
 // signin
-authRouter.post("/login", authController.signinController);
+//authRouter.post("/login", authController.signinController);
 
 // update profile
-authRouter.post("/update", authController.updateController);
+//authRouter.post("/update", authController.updateController);
 
 // forget password
-authRouter.post("/forget", authController.forgetController);
+//authRouter.post("/forget", authController.forgetController);
