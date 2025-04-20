@@ -23,7 +23,6 @@ export default class AuthController {
     }
   }
 
-  
   async signinController(req: Request, res: Response) {
     try {
       // Step 1: Extract data from Body
@@ -41,4 +40,20 @@ export default class AuthController {
       res.status(500).json({ success: false, message: error.message });
     }
   }
+
+  async updateController(req: Request, res: Response) {
+    try {
+      // @ts-ignore
+      const userId = req.id || "6803dd52bc9ebeb70f34399d";
+      const { bio, username } = req.body;
+
+      const result = await authService.updateservice(bio, userId, username);
+
+      res.status(result.success ? 200 : 400).json(result);
+    } catch (error: any) {
+      console.error("Error in AuthController - Signup:", error.message);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+  
 }

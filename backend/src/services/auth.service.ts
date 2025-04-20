@@ -1,6 +1,10 @@
 import AuthRepository from "../repository/auth.repository";
 import bcrypt from "bcrypt";
-import { SignInDataSanitization, SignUpDataSanitization } from "../utils";
+import {
+  SignInDataSanitization,
+  SignUpDataSanitization,
+  updateAuthDataSanitization,
+} from "../utils";
 import jwt from "jsonwebtoken";
 
 const authRepository = new AuthRepository();
@@ -103,6 +107,60 @@ export default class AuthService {
       // Step 8: Catch and log error
       console.error("Error in AuthService - Sign In:", error.message);
       throw new Error("Service error during signin");
+    }
+  }
+
+  async updateservice(bio: string, userId: string, username: string) {
+    try {
+      // Step 1: Validate and sanitize input using Zod
+      const isDataSanitized = updateAuthDataSanitization.safeParse({
+        username,
+        bio,
+      });
+      console.log("Service Layer: Step-1 - Data sanitization attempted");
+
+      // Step 2: If validation fails, return early
+      if (!isDataSanitized.success) {
+        console.log("Service Layer: Step-2 - Validation failed");
+        return {
+          success: false,
+          message: "Validation failed",
+          errors: isDataSanitized.error.flatten().fieldErrors,
+        };
+      }
+      console.log("Service Layer: Step-2 - Data validation passed");
+
+      // Step 3: Call repository method to handle username check + update
+      const updateResult = await authRepository.updateProfile(
+        userId,
+        bio,
+        username
+      );
+      console.log("Service Layer: Step-3 - Repository method called");
+
+      // Step 4: Check for username conflict
+      if (!updateResult.success) {
+        console.log("Service Layer: Step-4 - Username conflict detected");
+        return {
+          success: false,
+          message: updateResult.message || "Update failed",
+        };
+      }
+
+      // Step 5: Return updated user data
+      console.log("Service Layer: Step-5 - Profile updated successfully");
+      return {
+        success: true,
+        message: "Profile updated successfully",
+        user: updateResult.data,
+      };
+    } catch (error: any) {
+      // Step 6: Catch errors
+      console.error(
+        "Service Layer: Step-6 - Error during profile update",
+        error.message
+      );
+      throw new Error("Service: Profile update failed");
     }
   }
 }

@@ -44,4 +44,29 @@ export default class AuthRepository {
       throw new Error("Repository: Failed to check for email");
     }
   }
+
+  async updateProfile(userId: string, bio: string, username: string) {
+    try {
+      // Step 1: Check if the username is taken by someone else
+      const duplicateUser = await User.findOne({
+        username,
+        _id: { $ne: userId },
+      });
+      if (duplicateUser) {
+        return { success: false, message: "Username already taken" };
+      }
+
+      // Step 2: Update the user's profile
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { username, bio },
+        { new: true }
+      );
+
+      return { success: true, data: updatedUser };
+    } catch (error: any) {
+      console.error("Repository Error: updateProfile", error.message);
+      throw new Error("Repository: Failed to update user profile");
+    }
+  }
 }

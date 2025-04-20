@@ -12,7 +12,7 @@ authRouter.post("/signup", authController.signupController);
 authRouter.post("/signin", authController.signinController);
 
 // update profile
-//authRouter.post("/update", authController.updateController);
+authRouter.post("/update", authController.updateController);
 
 // forget password
 //authRouter.post("/forget", authController.forgetController);

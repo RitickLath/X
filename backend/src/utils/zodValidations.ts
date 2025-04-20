@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z, z } from "zod";
 
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;
@@ -24,4 +24,13 @@ export const SignUpDataSanitization = z.object({
 export const SignInDataSanitization = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
   password: z.string(),
+});
+
+export const updateAuthDataSanitization = z.object({
+  username: z
+    .string()
+    .min(3, { message: "Username must be at least 3 characters long." })
+    .max(20, { message: "Username cannot exceed 20 characters." }),
+
+  bio: z.string().max(150, { message: "Bio cannot exceed 150 characters." }),
 });

@@ -3,6 +3,7 @@ import { HashTag, Tweet, User } from "../models";
 import { undefined } from "zod";
 
 export class TweetRepository {
+  // Create Tweet + Update the already present hashtags in hashtag document with the tweetId and add new Hashtag
   async createTweetWithHashtags(
     content: string,
     author: mongoose.Types.ObjectId,
@@ -83,3 +84,18 @@ export class TweetRepository {
     }
   }
 }
+
+/**
+ * createTweetWithHashtags:- Creates a new tweet and associates it with relevant hashtags.
+ *
+ * This function performs the following steps:
+ * 1. Creates a tweet document without any hashtags.
+ * 2. Iterates over the provided list of hashtags:
+ *    - If the hashtag already exists, updates its tweetIds array by adding the new tweet.
+ *    - If it doesn't exist, creates a new hashtag document with the tweetId.
+ * 3. Updates the tweet document with the ObjectIds of all associated hashtags.
+ *
+ * If the environment is production, all operations are executed inside a MongoDB transaction
+ * to ensure atomicity. Transactions are skipped in local/dev environments due to limitations
+ * with single-node MongoDB setups (i.e., lack of replica set).
+ */
