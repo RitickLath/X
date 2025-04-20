@@ -1,9 +1,85 @@
+import mongoose from "mongoose";
+import { HashTag, Tweet, User } from "../models";
+import { undefined } from "zod";
+
 export class TweetRepository {
-  async createTweet() {
+  async createTweetWithHashtags(
+    content: string,
+    author: mongoose.Types.ObjectId,
+    hashtagStrings: string[]
+  ) {
+    const isProd = process.env.NODE_ENV === "production";
+
+    // since the transaction doesn't works in local environment so we will use atoicity feature in Production.
+    const session = isProd ? await mongoose.startSession() : null;
+    if (session) session.startTransaction();
+
     try {
+      // Step 1: Create tweet without hashtags
+      const tweetCreate = await Tweet.create(
+        [{ content, author, hashtags: [] }],
+        session ? { session } : {}
+      );
+      const createdTweet = tweetCreate[0];
+      console.log("Repository Layer: Step-1 - Tweet created");
+
+      const hashtagIds: mongoose.Types.ObjectId[] = [];
+
+      // Step 2: Upsert hashtags and link tweetId (upsert: true -> helps to insert the doc if not exists already, new:true -> to provide update hashtag)
+      for (const rawTag of hashtagStrings) {
+        const tag = rawTag.toLowerCase().trim();
+
+        const hashtag = await HashTag.findOneAndUpdate(
+          { tag },
+          { $addToSet: { tweetIds: createdTweet._id } },
+          { new: true, upsert: true, ...(session && { session }) }
+        );
+        // @ts-ignore
+        hashtagIds.push(hashtag._id);
+      }
+      console.log(
+        "Repository Layer: Step-2 - Hashtags upserted and tweet linked"
+      );
+
+      // Step 3: Update tweet with hashtag ObjectIds
+      createdTweet.hashtags = hashtagIds;
+      await createdTweet.save(session ? { session } : {});
+      console.log("Repository Layer: Step-3 - Tweet updated with hashtag IDs");
+
+      // Step 4: Commit transaction
+      if (session) {
+        await session.commitTransaction();
+        session.endSession();
+      }
+      console.log("Repository Layer: Step-4 - Transaction committed");
+
+      return createdTweet;
     } catch (error: any) {
-      console.log("Error Occured in Tweet Repository: " + error.message);
-      throw new Error("Error Occured in Tweet Repository: " + error.message);
+      // Step 5: Rollback transaction and handle error
+      if (session) {
+        await session.abortTransaction();
+        session.endSession();
+      }
+      console.error(
+        "Repository Layer: Step-5 - Error during tweet creation:",
+        error.message
+      );
+      throw new Error("Failed to create tweet with hashtags");
+    }
+  }
+
+  async findUserById(userId: string) {
+    try {
+      // Step 1: Find user by ID
+      const user = await User.findById(userId);
+      console.log("Repository Layer: Step-1 - User lookup complete");
+      return user;
+    } catch (error: any) {
+      console.error(
+        "Repository Layer: Step-2 - Error finding user:",
+        error.message
+      );
+      throw new Error("Failed to find user");
     }
   }
 }

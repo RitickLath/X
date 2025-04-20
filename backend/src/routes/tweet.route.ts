@@ -9,7 +9,7 @@ const tweetController = new TweetController();
 tweetRouter.post("/", tweetController.tweetPostController);
 
 // Retweet a tweet
-tweetRouter.post("/:tweetId/retweet", (req, res) => {});
+tweetRouter.post("/:tweetId/retweet", (req, res) => {}); // make a field original/retweet part in model (enum)
 
 // Get tweets of a user (also get total likes)
 tweetRouter.get("/tweet/:userId", (req, res) => {});
