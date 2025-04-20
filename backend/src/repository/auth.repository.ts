@@ -61,7 +61,7 @@ export default class AuthRepository {
         userId,
         { username, bio },
         { new: true }
-      );
+      ).select("-password");
 
       return { success: true, data: updatedUser };
     } catch (error: any) {

@@ -72,7 +72,7 @@ export class TweetRepository {
   async findUserById(userId: string) {
     try {
       // Step 1: Find user by ID
-      const user = await User.findById(userId);
+      const user = await User.findById(userId).select("-password");
       console.log("Repository Layer: Step-1 - User lookup complete");
       return user;
     } catch (error: any) {
