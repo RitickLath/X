@@ -23,7 +23,7 @@ const tweetSchema: Schema<ITweet> = new mongoose.Schema({
   content: {
     type: String,
     maxLength: [270, "Maximum Allowed Characters is 270"],
-    required: [true, "Tweet content is required"],
+    //required: [true, "Tweet content is required"],
   },
   image: {
     type: String,

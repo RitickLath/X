@@ -1,35 +1,30 @@
 import mongoose from "mongoose";
 import { HashTag, Tweet, User } from "../models";
-import { undefined } from "zod";
 
 export class TweetRepository {
-  // Create Tweet + Update the already present hashtags in hashtag document with the tweetId and add new Hashtag
+  // Step-wise tweet creation with hashtag linkage
   async createTweetWithHashtags(
     content: string,
     author: mongoose.Types.ObjectId,
     hashtagStrings: string[]
   ) {
     const isProd = process.env.NODE_ENV === "production";
-
-    // since the transaction doesn't works in local environment so we will use atoicity feature in Production.
     const session = isProd ? await mongoose.startSession() : null;
     if (session) session.startTransaction();
 
     try {
-      // Step 1: Create tweet without hashtags
+      // Step-1: Create Tweet
       const tweetCreate = await Tweet.create(
         [{ content, author, hashtags: [] }],
         session ? { session } : {}
       );
       const createdTweet = tweetCreate[0];
-      console.log("Repository Layer: Step-1 - Tweet created");
+      console.log("Repository: Step-1 - Tweet created"); // console
 
+      // Step-2: Upsert Hashtags and Link to Tweet
       const hashtagIds: mongoose.Types.ObjectId[] = [];
-
-      // Step 2: Upsert hashtags and link tweetId (upsert: true -> helps to insert the doc if not exists already, new:true -> to provide update hashtag)
       for (const rawTag of hashtagStrings) {
         const tag = rawTag.toLowerCase().trim();
-
         const hashtag = await HashTag.findOneAndUpdate(
           { tag },
           { $addToSet: { tweetIds: createdTweet._id } },
@@ -38,86 +33,102 @@ export class TweetRepository {
         // @ts-ignore
         hashtagIds.push(hashtag._id);
       }
-      console.log(
-        "Repository Layer: Step-2 - Hashtags upserted and tweet linked"
-      );
+      console.log("Repository: Step-2 - Hashtags upserted and linked"); //console
 
-      // Step 3: Update tweet with hashtag ObjectIds
+      // Step-3: Update Tweet with Hashtag IDs
       createdTweet.hashtags = hashtagIds;
       await createdTweet.save(session ? { session } : {});
-      console.log("Repository Layer: Step-3 - Tweet updated with hashtag IDs");
+      console.log("Repository: Step-3 - Tweet updated with hashtags");
 
-      // Step 4: Commit transaction
+      // Step-4: Commit Transaction
       if (session) {
         await session.commitTransaction();
         session.endSession();
+        console.log("Repository: Step-4 - Transaction committed");
       }
-      console.log("Repository Layer: Step-4 - Transaction committed");
 
       return createdTweet;
     } catch (error: any) {
-      // Step 5: Rollback transaction and handle error
       if (session) {
         await session.abortTransaction();
         session.endSession();
+        console.error("Repository: Step-5 - Transaction aborted");
       }
-      console.error(
-        "Repository Layer: Step-5 - Error during tweet creation:",
-        error.message
-      );
+      console.error("Repository: Step-Error -", error.message);
       throw new Error("Failed to create tweet with hashtags");
     }
   }
 
-  async findUserById(userId: string) {
+  // Find user by ID
+  async findUserById(author: string) {
     try {
-      // Step 1: Find user by ID
-      const user = await User.findById(userId).select("-password");
-      console.log("Repository Layer: Step-1 - User lookup complete");
+      // Step-1: Find User
+      const user = await User.findById(author).select("-password");
+      console.log("Repository: Step-1 - User lookup complete");
       return user;
     } catch (error: any) {
       console.error(
-        "Repository Layer: Step-2 - Error finding user:",
+        "Repository: Step-Error - User lookup failed:",
         error.message
       );
       throw new Error("Failed to find user");
     }
   }
 
-  async getTweets(userId: string, page: number) {
+  // Fetch tweets with pagination
+  async getTweets(author: string, page: number) {
     try {
-      // Step-1: Get Tweets
-      const tweets = await Tweet.find({ author: userId })
+      // Step-1: Fetch Tweets
+      const tweets = await Tweet.find({ author: author })
         .select("-hashtags")
         .populate("author", "username")
-        .populate("comments")
         .limit(10)
         .skip(10 * page);
 
-      console.log("Repository Layer: Step-2 - Tweets query successful, found:");
-
+      console.log(
+        `Repository: Step-1 - Fetched ${tweets.length} tweets (Page ${page})`
+      );
       return tweets;
     } catch (error: any) {
       console.error(
-        "Repository Layer: Step-Error - Failed to get tweets:",
+        "Repository: Step-Error - Failed to fetch tweets:",
         error.message
       );
       throw new Error("Failed to get tweets from DB");
     }
   }
-}
 
-/**
- * createTweetWithHashtags:- Creates a new tweet and associates it with relevant hashtags.
- *
- * This function performs the following steps:
- * 1. Creates a tweet document without any hashtags.
- * 2. Iterates over the provided list of hashtags:
- *    - If the hashtag already exists, updates its tweetIds array by adding the new tweet.
- *    - If it doesn't exist, creates a new hashtag document with the tweetId.
- * 3. Updates the tweet document with the ObjectIds of all associated hashtags.
- *
- * If the environment is production, all operations are executed inside a MongoDB transaction
- * to ensure atomicity. Transactions are skipped in local/dev environments due to limitations
- * with single-node MongoDB setups (i.e., lack of replica set).
- */
+  // Find a tweet by ID
+  async findTweet(tweetId: string) {
+    try {
+      // Step-1: Find Tweet
+      const tweet = await Tweet.findById(tweetId);
+      console.log("Repository: Step-1 - Tweet lookup complete");
+      return tweet;
+    } catch (error: any) {
+      console.error(
+        "Repository: Step-Error - Tweet lookup failed:",
+        error.message
+      );
+      throw new Error("Failed to find tweet");
+    }
+  }
+
+  // Create a retweet
+  async retweet(author: string, tweetId: string) {
+    try {
+      // Step-1: Create Retweet
+      const retweet = await Tweet.create({
+        retweet: tweetId,
+        author,
+        original: false,
+      });
+
+      console.log("Repository: Step-1 - Retweet created");
+      return retweet;
+    } catch (error: any) {
+      console.error("Repository: Step-Error - Retweet failed:", error.message);
+      throw new Error("Failed to add retweet");
+    }
+  }
+}
