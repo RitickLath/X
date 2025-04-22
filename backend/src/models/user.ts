@@ -5,6 +5,7 @@ interface IUser extends Document {
   email: string;
   password: string;
   bio?: string;
+  following?: mongoose.Types.ObjectId[];
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -44,6 +45,12 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
     type: String,
     maxLength: [160, "Bio must be under 160 characters"],
   },
+  following: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 export const User: Model<IUser> = mongoose.model("User", userSchema);

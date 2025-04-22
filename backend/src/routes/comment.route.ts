@@ -1,9 +1,12 @@
 import express from "express";
+import { CommentController } from "../controller/comment.controller";
 
 export const commentRouter = express.Router();
 
+//const commentController = new CommentController();
+
 // Comment on a tweet
-commentRouter.post("/:tweetId", (req, res) => {});
+//commentRouter.post("/:tweetId", commentController.commentOnTweet);
 
 // Reply to a comment
 commentRouter.post("/:commentId/reply", (req, res) => {});

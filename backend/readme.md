@@ -72,8 +72,8 @@
 
 ## Database Design
 
-![alt text](image.png)
-https://excalidraw.com/#json=bZkg8R8HhHbd62LNmxC4m,ETP89q5iti7MfGtY7PZqog
+![alt text](image-2.png)
+https://excalidraw.com/#json=nVk3z3sfw81HIjvff4_PQ,RaCZqYH7P36DAjuzvu7Ahw
 
 ## API Design
 
@@ -150,7 +150,7 @@ https://excalidraw.com/#json=bZkg8R8HhHbd62LNmxC4m,ETP89q5iti7MfGtY7PZqog
 2. **Retweet a tweet** (POST)
 
    ```
-   /api/tweets/:tweetId/retweet 
+   /api/tweets/:tweetId/retweet
    ```
 
 3. **Get tweets of a user** (GET)

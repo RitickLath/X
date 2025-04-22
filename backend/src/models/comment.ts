@@ -1,35 +1,34 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 
 interface IComment extends Document {
-  userId: mongoose.Types.ObjectId;
+  author: mongoose.Types.ObjectId;
   comment: string;
   likeId?: mongoose.Types.ObjectId;
-  tweetId?: mongoose.Types.ObjectId;
+  tweetId: mongoose.Types.ObjectId;
   commentId?: mongoose.Types.ObjectId;
 }
 
+// note we are not connecting the hashtag implementation on comment section (v2 maybe)
+
 const commentSchema: Schema<IComment> = new mongoose.Schema({
-  comment: {
-    type: String,
-    required: true,
-  },
-  userId: {
+  author: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
+  },
+  comment: {
+    type: String,
     required: true,
   },
   tweetId: {
     type: Schema.Types.ObjectId,
     ref: "Tweet",
+    required: true,
   },
   // for comment inside comment track
   commentId: {
     type: Schema.Types.ObjectId,
     ref: "Comment",
-  },
-  likeId: {
-    type: Schema.Types.ObjectId,
-    ref: "Like",
   },
 });
 
