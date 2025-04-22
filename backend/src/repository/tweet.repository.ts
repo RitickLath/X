@@ -83,6 +83,28 @@ export class TweetRepository {
       throw new Error("Failed to find user");
     }
   }
+
+  async getTweets(userId: string, page: number) {
+    try {
+      // Step-1: Get Tweets
+      const tweets = await Tweet.find({ author: userId })
+        .select("-hashtags")
+        .populate("author", "username")
+        .populate("comments")
+        .limit(10)
+        .skip(10 * page);
+
+      console.log("Repository Layer: Step-2 - Tweets query successful, found:");
+
+      return tweets;
+    } catch (error: any) {
+      console.error(
+        "Repository Layer: Step-Error - Failed to get tweets:",
+        error.message
+      );
+      throw new Error("Failed to get tweets from DB");
+    }
+  }
 }
 
 /**

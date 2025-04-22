@@ -1,5 +1,8 @@
 import express from "express";
 import { TweetController } from "../controller/tweet.controller";
+import { Tweet, User } from "../models";
+import mongoose from "mongoose";
+import { Mongoose } from "mongoose";
 
 export const tweetRouter = express.Router();
 
@@ -12,4 +15,4 @@ tweetRouter.post("/", tweetController.tweetPostController);
 tweetRouter.post("/:tweetId/retweet", (req, res) => {}); // make a field original/retweet part in model (enum)
 
 // Get tweets of a user (also get total likes)
-tweetRouter.get("/tweet/:userId", (req, res) => {});
+tweetRouter.get("/:userId", tweetController.getTweetController);

@@ -82,19 +82,19 @@ https://excalidraw.com/#json=bZkg8R8HhHbd62LNmxC4m,ETP89q5iti7MfGtY7PZqog
 1. **Register a new user** (POST)
 
    ```
-   /api/auth/signup
+   /api/auth/signup (Done)
    ```
 
 2. **Log in an existing user** (POST)
 
    ```
-   /api/auth/login
+   /api/auth/login (Done)
    ```
 
 3. **Update profile (bio, username)** (PATCH)
 
    ```
-   /api/auth/update
+   /api/auth/update (Done)
    ```
 
 4. **Forgot password** (POST)
@@ -144,19 +144,19 @@ https://excalidraw.com/#json=bZkg8R8HhHbd62LNmxC4m,ETP89q5iti7MfGtY7PZqog
 1. **Create a tweet** (POST)
 
    ```
-   /api/tweets
+   /api/tweets (Done)
    ```
 
 2. **Retweet a tweet** (POST)
 
    ```
-   /api/tweets/:tweetId/retweet
+   /api/tweets/:tweetId/retweet 
    ```
 
 3. **Get tweets of a user** (GET)
 
    ```
-   /api/users/:userId/tweets
+   /api/tweet/:userId?page (Done)
    ```
 
 ### Comment APIs

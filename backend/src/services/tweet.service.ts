@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { TweetRepository } from "../repository/tweet.repository";
 import { extractTags } from "../utils";
+import { User } from "../models";
 
 const tweetRepository = new TweetRepository();
 
@@ -54,4 +55,50 @@ export class TweetService {
       throw new Error("Service error during tweet posting");
     }
   }
+
+  async getTweets(userId: string, page: number) {
+    try {
+      // Step 1: Log intent to fetch tweets
+      console.log(
+        "Service Layer: Step-1 - Fetching tweets for user:",
+        userId,
+        "Page:",
+        page
+      );
+
+      // Step 2: Fetch tweets from repository
+      const tweets = await tweetRepository.getTweets(userId, page);
+      console.log(
+        "Service Layer: Step-2 - Tweets fetched from repository, count:",
+        tweets.length
+      );
+
+      // Step 3: Check if no tweets found, validate user existence
+      if (tweets.length === 0) {
+        const user = await tweetRepository.findUserById(userId);
+        console.log("Service Layer: Step-3 - Checking if user exists");
+
+        if (!user) {
+          console.log("Service Layer: Step-4 - User not found");
+          return { success: false, message: "User does not exist", data: [] };
+        }
+
+        console.log("Service Layer: Step-4 - User exists but no tweets found");
+        return { success: true, message: "No tweets found", data: [] };
+      }
+
+      // Step 4: Success - return tweets
+      console.log("Service Layer: Step-5 - Tweets and user validated");
+      return {
+        success: true,
+        message: "Tweets fetched successfully",
+        data: tweets,
+      };
+    } catch (error: any) {
+      // Step 6: Error handling
+      console.error("Service Layer: Step-Error -", error.message);
+      throw new Error("Service error during tweet fetching");
+    }
+  }
 }
+
