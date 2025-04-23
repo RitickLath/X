@@ -11,6 +11,14 @@ export class TweetController {
     const { content } = req.body;
     console.log("Controller: Step-1 - Extracted author and content"); // console
 
+    if (!author || !content) {
+      res.status(400).json({
+        success: false,
+        message: "Not getting all the required Field.",
+      });
+      return;
+    }
+
     try {
       // Step-2 Pass the data to Service Layer
       const response = await tweetService.tweetPostService(author, content);
@@ -35,6 +43,14 @@ export class TweetController {
     const page = Number(req.query.page) || 0;
     console.log("Controller: Step-1 - Extracted userId and page:"); // console
 
+    if (!author) {
+      res.status(400).json({
+        success: false,
+        message: "Not getting all the required Field.",
+      });
+      return;
+    }
+
     try {
       // Step-2 Pass the data to Service Layer
       const response = await tweetService.getTweets(author, page);
@@ -55,9 +71,17 @@ export class TweetController {
   // Controller for retweeting
   async retweetController(req: Request, res: Response) {
     // Step-1: Extract the data
-    const author = "6807ee4a1adaf4f481b31b09"; // req.body
+    const author = "6808ecbfa4633be72fdeeab6"; // req.body
     const tweetId = req.params.tweetId;
     console.log("Controller: Step-1 - Extracted author and tweetId:"); // console
+
+    if (!author || !tweetId) {
+      res.status(400).json({
+        success: false,
+        message: "Not getting all the required Field.",
+      });
+      return;
+    }
 
     try {
       // Step-2 Pass the data to Service Layer

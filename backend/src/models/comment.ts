@@ -4,7 +4,7 @@ interface IComment extends Document {
   author: mongoose.Types.ObjectId;
   comment: string;
   likeId?: mongoose.Types.ObjectId;
-  tweetId: mongoose.Types.ObjectId;
+  tweetId?: mongoose.Types.ObjectId;
   commentId?: mongoose.Types.ObjectId;
 }
 
@@ -23,7 +23,6 @@ const commentSchema: Schema<IComment> = new mongoose.Schema({
   tweetId: {
     type: Schema.Types.ObjectId,
     ref: "Tweet",
-    required: true,
   },
   // for comment inside comment track
   commentId: {
