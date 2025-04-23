@@ -11,6 +11,8 @@ import {
   userRouter,
 } from "./routes";
 import dotenv from "dotenv";
+import { seedAuth } from "./seed/auth.seed";
+import { seedTweet } from "./seed/tweet.seed";
 
 dotenv.config();
 
@@ -44,3 +46,8 @@ app.use("/api/v1/notification", notificationRouter);
 
 // Media API
 app.use("/api/v1/media", mediaRouter);
+
+// seed data API endpoints
+app.use("/api/seed/auth", seedAuth);
+
+app.use("/api/seed/tweet", seedTweet);

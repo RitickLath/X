@@ -15,32 +15,25 @@ export class TweetRepository {
     try {
       // Step-1: Create Tweet
       const tweetCreate = await Tweet.create(
-        [{ content, author, hashtags: [] }],
+        [{ content, author }],
         session ? { session } : {}
       );
       const createdTweet = tweetCreate[0];
       console.log("Repository: Step-1 - Tweet created"); // console
 
       // Step-2: Upsert Hashtags and Link to Tweet
-      const hashtagIds: mongoose.Types.ObjectId[] = [];
+
       for (const rawTag of hashtagStrings) {
         const tag = rawTag.toLowerCase().trim();
         const hashtag = await HashTag.findOneAndUpdate(
           { tag },
-          { $addToSet: { tweetIds: createdTweet._id } },
+          { $addToSet: { tweetIds: createdTweet._id } }, // update the array
           { new: true, upsert: true, ...(session && { session }) }
         );
-        // @ts-ignore
-        hashtagIds.push(hashtag._id);
       }
       console.log("Repository: Step-2 - Hashtags upserted and linked"); //console
 
-      // Step-3: Update Tweet with Hashtag IDs
-      createdTweet.hashtags = hashtagIds;
-      await createdTweet.save(session ? { session } : {});
-      console.log("Repository: Step-3 - Tweet updated with hashtags");
-
-      // Step-4: Commit Transaction
+      // Step-3: Commit Transaction
       if (session) {
         await session.commitTransaction();
         session.endSession();
