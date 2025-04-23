@@ -3,91 +3,113 @@ import { Comment, Tweet, User } from "../models";
 
 export const commentRouter = express.Router();
 
-// Comment on a tweet
+// Comment on a Tweet
 commentRouter.post("/:tweetId", async (req, res) => {
-  const author = req.id;
+  const userId = req.id;
   const { tweetId } = req.params;
   const { comment } = req.body;
 
-  if (!author || !tweetId || !comment) {
+  if (!userId || !tweetId || !comment) {
     res.status(400).json({
       success: false,
-      message: "Missing required fields.",
+      message: "User ID, Tweet ID, and comment are required.",
     });
     return;
   }
 
-  if (comment.length < 1) {
+  if (comment.trim().length < 1) {
     res.status(400).json({
       success: false,
-      message: "Comment should not be empty.",
+      message: "Comment cannot be empty.",
     });
     return;
   }
 
-  const user = await User.find({ _id: author });
+  const user = await User.findById(userId);
   if (!user) {
-    res.status(400).json({ success: false, message: "Author not found." });
+    res.status(404).json({
+      success: false,
+      message: "User not found.",
+    });
     return;
   }
 
-  const tweet = await Tweet.find({ _id: tweetId });
+  const tweet = await Tweet.findById(tweetId);
   if (!tweet) {
-    res.status(400).json({ success: false, message: "Tweet not found." });
+    res.status(404).json({
+      success: false,
+      message: "Tweet not found.",
+    });
     return;
   }
 
-  const response = await Comment.create({ author, comment, tweetId });
-  res.status(200).json({
+  const newComment = await Comment.create({
+    author: userId,
+    comment,
+    tweetId,
+  });
+
+  res.status(201).json({
     success: true,
-    message: "Comment added successfully",
-    data: response,
+    message: "Comment posted successfully.",
+    data: newComment,
   });
 });
 
-// Reply to a comment
+// Reply to a Comment
 commentRouter.post("/:commentId/reply", async (req, res) => {
-  const { author } = req.body;
-  const { comment } = req.body;
+  const userId = req.id;
   const { commentId } = req.params;
+  const { comment } = req.body;
 
-  if (!author || !commentId || !comment) {
+  if (!userId || !commentId || !comment) {
     res.status(400).json({
       success: false,
-      message: "Missing required fields.",
+      message: "User ID, Comment ID, and reply content are required.",
     });
     return;
   }
 
-  if (comment.length < 1) {
+  if (comment.trim().length < 1) {
     res.status(400).json({
       success: false,
-      message: "Reply should not be empty.",
+      message: "Reply cannot be empty.",
     });
     return;
   }
 
-  const user = await User.find({ _id: author });
+  const user = await User.findById(userId);
   if (!user) {
-    res.status(400).json({ success: false, message: "Author not found." });
+    res.status(404).json({
+      success: false,
+      message: "User not found.",
+    });
     return;
   }
 
-  const parentComment = await Comment.find({ _id: commentId });
+  const parentComment = await Comment.findById(commentId);
   if (!parentComment) {
-    res.status(400).json({ success: false, message: "Comment not found." });
+    res.status(404).json({
+      success: false,
+      message: "Parent comment not found.",
+    });
     return;
   }
 
-  const response = await Comment.create({ author, comment, commentId });
-  res.status(200).json({
+  const reply = await Comment.create({
+    author: userId,
+    comment,
+    commentId,
+  });
+
+  res.status(201).json({
     success: true,
-    message: "Reply added successfully",
-    data: response,
+    message: "Reply added successfully.",
+    data: reply,
   });
 });
 
-// Get comments on a tweet
+// Get Comments on a Tweet
 commentRouter.get("/tweet/:tweetId", async (req, res) => {
   const { tweetId } = req.params;
 
@@ -99,7 +121,7 @@ commentRouter.get("/tweet/:tweetId", async (req, res) => {
     return;
   }
 
-  const tweet = await Tweet.find({ _id: tweetId });
+  const tweet = await Tweet.findById(tweetId);
   if (!tweet) {
     res.status(404).json({
       success: false,
@@ -108,18 +130,16 @@ commentRouter.get("/tweet/:tweetId", async (req, res) => {
     return;
   }
 
-  // Fetch top-level comments (not replies)
   const comments = await Comment.find({
     tweetId,
     commentId: { $exists: false },
   })
-    .populate("author") // not populating author need to be fixed
-    .populate("tweetId")
+    .populate("author", "username")
     .sort({ createdAt: -1 });
 
   res.status(200).json({
     success: true,
-    message: "Comments fetched successfully",
+    message: "Comments retrieved successfully.",
     data: comments,
   });
 });
