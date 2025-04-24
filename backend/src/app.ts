@@ -26,20 +26,20 @@ app.use("/api/v1/auth", authRouter); // Done
 // Tweet API
 app.use("/api/v1/tweet", tweetRouter); // Done
 
+// Comment API
+app.use("/api/v1/comment", commentRouter); // Done (Refactor Needed)
+
+// Like API
+app.use("/api/v1/likes", likeRouter); // Done (Refactor Needed)
+
+// Search API
+app.use("/api/v1/search", searchRouter); // Done (Refactor Needed)
+
 // User and Profile API
 app.use("/api/v1/users", userRouter);
 
-// Comment API
-app.use("/api/v1/comment", commentRouter);
-
-// Like API
-app.use("/api/v1/likes", likeRouter);
-
 // Feed and TimeLine APi
 app.use("/api/v1/feed", feedRouter);
-
-// Search API
-app.use("/api/v1/search", searchRouter);
 
 // Notification API
 app.use("/api/v1/notification", notificationRouter);
@@ -47,6 +47,7 @@ app.use("/api/v1/notification", notificationRouter);
 // Media API
 app.use("/api/v1/media", mediaRouter);
 
+// seedings
 // seed data API endpoints
 app.use("/api/seed/auth", seedAuth);
 
