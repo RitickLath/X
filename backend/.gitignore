@@ -1,6 +1,3 @@
 dist
 node_modules
 .env
-comment.repository.ts
-comment.service.ts
-comment.controller.ts

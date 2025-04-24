@@ -14,7 +14,7 @@ export class TweetController {
     if (!author || !content) {
       res.status(400).json({
         success: false,
-        message: "Not getting all the required Field.",
+        message: "Author and Content are required Field.",
       });
       return;
     }
