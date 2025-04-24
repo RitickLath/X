@@ -3,6 +3,7 @@ import {
   authRouter,
   commentRouter,
   feedRouter,
+  followRouter,
   likeRouter,
   mediaRouter,
   notificationRouter,
@@ -34,6 +35,9 @@ app.use("/api/v1/likes", likeRouter); // Done
 
 // Search API
 app.use("/api/v1/search", searchRouter); // Done
+
+// Follow/unfollow API
+app.use("/api/v1/follow", followRouter);
 
 // User and Profile API
 app.use("/api/v1/users", userRouter);

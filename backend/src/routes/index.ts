@@ -7,3 +7,4 @@ export { notificationRouter } from "./notification.route";
 export { searchRouter } from "./search.route";
 export { tweetRouter } from "./tweet.route";
 export { userRouter } from "./user.route";
+export { followRouter } from "./follow.route";
