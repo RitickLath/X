@@ -66,11 +66,12 @@ export class CommentController {
     console.log("Controller: Step-1 - Extracted tweetId"); // console
 
     try {
+      // Step-2: Pass the data to service layer
       const response = await commentService.getTweet(tweetId);
       console.log("Controller: Step-2 - Service response received"); // console
 
       // Step-3: Return the response (Conditional)
-      return res.status(response.success ? 200 : 400).json(response);
+      res.status(response.success ? 200 : 400).json(response);
       console.log("Controller: Step-3 - Response sent to client"); // console
     } catch (error: any) {
       // Step-1: Error Handing

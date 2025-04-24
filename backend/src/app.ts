@@ -27,13 +27,13 @@ app.use("/api/v1/auth", authRouter); // Done
 app.use("/api/v1/tweet", tweetRouter); // Done
 
 // Comment API
-app.use("/api/v1/comment", commentRouter); // Done (Refactor Needed)
+app.use("/api/v1/comment", commentRouter); // Done
 
 // Like API
-app.use("/api/v1/likes", likeRouter); // Done (Refactor Needed)
+app.use("/api/v1/likes", likeRouter); // Done
 
 // Search API
-app.use("/api/v1/search", searchRouter); // Done (Refactor Needed)
+app.use("/api/v1/search", searchRouter); // Done
 
 // User and Profile API
 app.use("/api/v1/users", userRouter);
