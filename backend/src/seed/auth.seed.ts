@@ -16,3 +16,4 @@ seedAuth.post("/signup", async (req: Request, res: Response) => {
   const response = await User.create(data);
   res.status(200).json({ success: true, data: response });
 });
+

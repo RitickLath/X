@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { Tweet, HashTag } from "../models";
+import { Tweet, HashTag, User } from "../models";
 import { extractTags } from "../utils";
 
 export const seedTweet = express.Router();
@@ -19,6 +19,12 @@ seedTweet.post("/", async (req: Request, res: Response) => {
         author,
         original: true,
       });
+
+      const user = await User.findOne({ _id: author });
+      if (user) {
+        user.tweets?.push(tweet._id);
+        await user.save();
+      }
 
       // Step-2: Link tweet to hashtags
       for (const rawTag of hashtagStrings) {
