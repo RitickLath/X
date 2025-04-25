@@ -12,6 +12,13 @@ const authRepository = new AuthRepository();
 export default class AuthService {
   async signupService(username: string, email: string, password: string) {
     try {
+      if (!username || !email || !password) {
+        return {
+          success: false,
+          message: "All Fields are required",
+        };
+      }
+
       // Step 1: Validate and sanitize input using Zod
       const sanitized = SignUpDataSanitization.safeParse({
         username,
@@ -56,6 +63,13 @@ export default class AuthService {
 
   async signinservice(email: string, password: string) {
     try {
+      if (!email || !password) {
+        return {
+          success: false,
+          message: "Email and password both are required",
+        };
+      }
+
       // Step 1: Validate and sanitize using Zod
       const sanitized = SignInDataSanitization.safeParse({ email, password });
       console.log("Service Layer: Step-1");
@@ -111,6 +125,14 @@ export default class AuthService {
   }
 
   async updateservice(bio: string, userId: string, username: string) {
+    // Step-0: Check the Fields existance
+    if (!bio || !userId || !username) {
+      return {
+        success: false,
+        message: "All Fields are Required",
+      };
+    }
+
     try {
       // Step 1: Validate and sanitize input using Zod
       const isDataSanitized = updateAuthDataSanitization.safeParse({

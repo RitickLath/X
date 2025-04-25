@@ -8,7 +8,7 @@ export default class AuthController {
   async signupController(req: Request, res: Response) {
     try {
       // Step 1: Extract data from Body
-      const { username, email, password }: Isignup = req.body;
+      const { username, email, password }: Isignup = req.body || {};
       console.log("Controller Layer: Step-1");
 
       // Step-2: Pass Data to Service Layer for allpying business logics
@@ -26,7 +26,7 @@ export default class AuthController {
   async signinController(req: Request, res: Response) {
     try {
       // Step 1: Extract data from Body
-      const { email, password }: Isignup = req.body;
+      const { email, password }: Isignup = req.body || {};
       console.log("Controller Layer: Step-1");
 
       // Step-2: Pass Data to Service Layer for applying business logics
@@ -45,7 +45,7 @@ export default class AuthController {
     try {
       // @ts-ignore
       const userId = req.id || "6803dd52bc9ebeb70f34399d";
-      const { bio, username } = req.body;
+      const { bio, username } = req.body || {};
 
       const result = await authService.updateservice(bio, userId, username);
 
@@ -55,5 +55,4 @@ export default class AuthController {
       res.status(500).json({ success: false, message: error.message });
     }
   }
-  
 }

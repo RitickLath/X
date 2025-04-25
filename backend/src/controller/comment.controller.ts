@@ -8,7 +8,7 @@ export class CommentController {
     // Step-1: Extract the data
     const userId = req.id;
     const { tweetId } = req.params;
-    const { comment } = req.body;
+    const { comment } = req.body || {};
     console.log("Controller: Step-1 - Extracted userId, tweetId, comment"); // console
 
     try {
@@ -36,7 +36,7 @@ export class CommentController {
     // Step-1: Extract the data
     const userId = req.id;
     const { commentId } = req.params;
-    const { comment } = req.body;
+    const { comment } = req.body || {};
     console.log("Controller: Step-1 - Extracted userId, commentId, comment"); // console
 
     try {

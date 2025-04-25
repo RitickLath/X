@@ -21,7 +21,18 @@ export class TweetRepository {
       const createdTweet = tweetCreate[0];
       console.log("Repository: Step-1 - Tweet created"); // console
 
-      // Step-2: Upsert Hashtags and Link to Tweet
+      // Step-2: Add tweetId to user
+      const user = await User.findOne({ _id: author });
+      if (!user) {
+        return { success: false, message: "Author doesn't exist." };
+      } else {
+        // @ts-ignore
+        user.tweets?.push(createdTweet._id);
+        await user.save(session ? { session } : {});
+      }
+      console.log("Repository: Step-2 - TweetId added to user"); // console
+
+      // Step-3: Upsert Hashtags and Link to Tweet
 
       for (const rawTag of hashtagStrings) {
         const tag = rawTag.toLowerCase().trim();
@@ -31,9 +42,9 @@ export class TweetRepository {
           { new: true, upsert: true, ...(session && { session }) }
         );
       }
-      console.log("Repository: Step-2 - Hashtags upserted and linked"); //console
+      console.log("Repository: Step-3 - Hashtags upserted and linked"); //console
 
-      // Step-3: Commit Transaction
+      // Step-4: Commit Transaction
       if (session) {
         await session.commitTransaction();
         session.endSession();
@@ -56,7 +67,9 @@ export class TweetRepository {
   async findUserById(author: string) {
     try {
       // Step-1: Find User
-      const user = await User.findById(author).select("-password");
+      const user = await User.findById(author)
+        .select("-password")
+        .populate("tweets");
       console.log("Repository: Step-1 - User lookup complete");
       return user;
     } catch (error: any) {

@@ -6,7 +6,7 @@ const likeService = new LikeService();
 export class LikeController {
   async likeTweet(req: Request, res: Response) {
     // Step-1: Extract the data
-    const { userId } = req.body;
+    const userId = req.id;
     const { tweetId } = req.params;
     console.log("Controller: Step-1 - Extracted tweetId and userId"); // console
 
@@ -30,7 +30,7 @@ export class LikeController {
 
   async likeComment(req: Request, res: Response) {
     // Step-1: Extract the data
-    const { userId } = req.body;
+    const userId = req.id;
     const { commentId } = req.params;
     console.log("Controller: Step-1 - Extracted commentId and userId"); // console
 

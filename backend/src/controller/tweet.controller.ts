@@ -7,7 +7,7 @@ export class TweetController {
   // Controller for posting a tweet
   async tweetPostController(req: Request, res: Response) {
     // Step-1: Extract the data
-    const { author } = req.body || "6807eea81adaf4f481b31b28";
+    const author  = req.id || "6807eea81adaf4f481b31b28";
     const { content } = req.body;
     console.log("Controller: Step-1 - Extracted author and content"); // console
 

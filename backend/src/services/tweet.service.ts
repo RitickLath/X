@@ -7,6 +7,13 @@ const tweetRepository = new TweetRepository();
 export class TweetService {
   // Service for posting a tweet
   async tweetPostService(author: string, content: string) {
+    if (!author || !content) {
+      return {
+        success: false,
+        message: "Author and content Both are required",
+      };
+    }
+
     try {
       // Step-1: Validate Author
       console.log("Service: Step-1 - Validating author existence"); // console

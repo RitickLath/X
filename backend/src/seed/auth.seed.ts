@@ -6,7 +6,7 @@ export const seedAuth = express.Router();
 
 // signup
 seedAuth.post("/signup", async (req: Request, res: Response) => {
-  let { data } = req.body;
+  let { data } = req.body || {};
 
   for (let i = 0; i < data.length; i++) {
     const hashedPassword = await bcrypt.hash(data[i].password, 8);

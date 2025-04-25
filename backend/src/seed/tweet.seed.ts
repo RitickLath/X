@@ -6,7 +6,7 @@ export const seedTweet = express.Router();
 
 seedTweet.post("/", async (req: Request, res: Response) => {
   try {
-    const { data } = req.body;
+    const { data } = req.body || {};
     const createdTweets = [];
 
     for (let i = 0; i < data.length; i++) {

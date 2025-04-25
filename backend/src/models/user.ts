@@ -6,6 +6,7 @@ interface IUser extends Document {
   password: string;
   bio?: string;
   following?: mongoose.Types.ObjectId[];
+  tweets?: mongoose.Types.ObjectId[];
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -51,6 +52,13 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
       ref: "User",
     },
   ],
+  tweets: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Tweet",
+    },
+  ],
 });
+
 
 export const User: Model<IUser> = mongoose.model("User", userSchema);

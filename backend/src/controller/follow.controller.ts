@@ -7,7 +7,7 @@ export class FollowController {
   async toggleFollow(req: Request, res: Response) {
     // Step-1: Extract userId from params and author from req.id
     const { userId } = req.params;
-    const { author } = req.body;
+    const author = req.id; 
 
     try {
       // Step-2: Call service to toggle follow/unfollow
@@ -31,7 +31,6 @@ export class FollowController {
     // Step-1: Extract userId from params
     const { userId } = req.params;
     console.log("Controller: Step-1 - Extracted UserID"); //console
-      
 
     try {
       // Step-2: Call service to get followers

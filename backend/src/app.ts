@@ -37,7 +37,7 @@ app.use("/api/v1/likes", likeRouter); // Done
 app.use("/api/v1/search", searchRouter); // Done
 
 // Follow/unfollow API
-app.use("/api/v1/follow", followRouter);
+app.use("/api/v1/follow", followRouter); // Done
 
 // User and Profile API
 app.use("/api/v1/users", userRouter);
