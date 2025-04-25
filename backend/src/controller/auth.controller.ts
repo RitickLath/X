@@ -44,7 +44,7 @@ export default class AuthController {
   async updateController(req: Request, res: Response) {
     try {
       // @ts-ignore
-      const userId = req.id || "6803dd52bc9ebeb70f34399d";
+      const userId = req.id;
       const { bio, username } = req.body || {};
 
       const result = await authService.updateservice(bio, userId, username);

@@ -52,8 +52,8 @@ export class FollowService {
     return {
       success: true,
       message: isFollowing
-        ? "User unfollowed successfully."
-        : "User followed successfully.",
+        ? `${userExist?.username} unfollowed successfully.`
+        : `${userExist?.username} followed successfully.`,
       data: updatedAuthor?.following,
     };
   }

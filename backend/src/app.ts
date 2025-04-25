@@ -31,7 +31,7 @@ app.use("/api/v1/tweet", tweetRouter); // Done
 app.use("/api/v1/comment", commentRouter); // Done
 
 // Like API
-app.use("/api/v1/likes", likeRouter); // Done
+app.use("/api/v1/like", likeRouter); // Done
 
 // Search API
 app.use("/api/v1/search", searchRouter); // Done

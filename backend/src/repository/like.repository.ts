@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { User, Tweet, Comment, Like } from "../models";
+import { response } from "express";
 
 export class LikeRepository {
   async findById(userId: String, model: string) {
@@ -105,6 +106,33 @@ export class LikeRepository {
         error.message
       );
       throw new Error("Failed to create like");
+    }
+  }
+
+  async getLikes(id: String, type: String) {
+    try {
+      let response;
+      if (type == "tweet") {
+        response = await Like.find({ tweetId: id }).populate(
+          "likedBy",
+          "username"
+        );
+      }
+      if (type == "comment") {
+        response = await Like.find({ commentId: id }).populate(
+          "likedBy",
+          "username"
+        );
+      } else {
+        response = null;
+      }
+      return response;
+    } catch (error: any) {
+      console.error(
+        "Repository: Step-Error - like Count failed:",
+        error.message
+      );
+      throw new Error("Failed to fetch likes");
     }
   }
 }

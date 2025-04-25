@@ -1,3 +1,4 @@
+import { Comment, Tweet } from "../models";
 import { LikeRepository } from "../repository/like.repository";
 
 const likeRepository = new LikeRepository();
@@ -144,6 +145,41 @@ export class LikeService {
       // Step-Error: Catch service error
       console.error("Service: Step-Error -", error.message);
       throw new Error("Service error during like/unlike Comment");
+    }
+  }
+
+  async getCount(id: String, type: String) {
+    // Step-1: Validating required fields
+    console.log("Service: Step-1 - Validating required fields");
+    if (!id || !type) {
+      return {
+        success: false,
+        message: "ID and Type are required.",
+      };
+    }
+    try {
+      // Step-2: Check if the id exists
+      console.log("Service: Step-2 - Validating Id existence");
+      const idExists = await likeRepository.findById(id, type.toLowerCase());
+      if (!idExists) {
+        return {
+          success: false,
+          message: `${type} not found.`,
+        };
+      }
+
+      // Step-3: Passing data to repository layer for getting likes details
+      console.log("Service: Step-3 - Getting like details");
+      const likes = await likeRepository.getLikes(id, type);
+      return {
+        success: true,
+        message: "Likes fetched",
+        data: { likes: likes, count: likes?.length },
+      };
+    } catch (error: any) {
+      // Step-Error: Catch service error
+      console.error("Service: Step-Error -", error.message);
+      throw new Error("Service error during like Count");
     }
   }
 }

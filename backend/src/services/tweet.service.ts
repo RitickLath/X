@@ -94,6 +94,12 @@ export class TweetService {
   // Service for retweeting
   async retweet(author: string, tweetId: string) {
     try {
+      if (!author || !tweetId) {
+        return {
+          success: false,
+          message: "Login First and choose the tweet to retweet",
+        };
+      }
       // Step-1: Validate User and Tweet
       console.log("Service: Step-1 - Validating user and tweet existence");
       const user = await tweetRepository.findUserById(author);

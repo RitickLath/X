@@ -7,8 +7,8 @@ export class TweetController {
   // Controller for posting a tweet
   async tweetPostController(req: Request, res: Response) {
     // Step-1: Extract the data
-    const author  = req.id || "6807eea81adaf4f481b31b28";
-    const { content } = req.body;
+    const author = req.id;
+    const { content } = req.body || {};
     console.log("Controller: Step-1 - Extracted author and content"); // console
 
     if (!author || !content) {
@@ -71,7 +71,7 @@ export class TweetController {
   // Controller for retweeting
   async retweetController(req: Request, res: Response) {
     // Step-1: Extract the data
-    const author = "6808ecbfa4633be72fdeeab6"; // req.body
+    const author = req.id;
     const tweetId = req.params.tweetId;
     console.log("Controller: Step-1 - Extracted author and tweetId:"); // console
 

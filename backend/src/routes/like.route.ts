@@ -1,11 +1,19 @@
 import express from "express";
 import { LikeController } from "../controller/like.controller";
+import { authMiddleware } from "../middlewares";
 
 export const likeRouter = express.Router();
 
 const likeController = new LikeController();
 // Like or Unlike a Tweet
-likeRouter.post("/tweet/:tweetId", likeController.likeTweet);
+likeRouter.post("/tweet/:tweetId", authMiddleware, likeController.likeTweet);
 
 // Like or Unlike a Comment
-likeRouter.post("/comment/:commentId", likeController.likeComment);
+likeRouter.post(
+  "/comment/:commentId",
+  authMiddleware,
+  likeController.likeComment
+);
+
+// Get Like Count on comment/tweet
+likeRouter.get("/count", authMiddleware, likeController.getCount);

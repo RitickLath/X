@@ -1,13 +1,13 @@
 import express from "express";
-import { User } from "../models";
 import { FollowController } from "../controller/follow.controller";
+import { authMiddleware } from "../middlewares";
 
 export const followRouter = express.Router();
 
 const followController = new FollowController();
 
 // POST: Toggle follow/unfollow a user
-followRouter.post("/:userId", followController.toggleFollow);
+followRouter.post("/", authMiddleware, followController.toggleFollow);
 
 // GET: Get followers of a user
-followRouter.get("/:userId", followController.getFollowers);
+followRouter.get("/", authMiddleware, followController.getFollowers);

@@ -10,10 +10,11 @@ export class SearchController {
     console.log("Controller: Step-1 - Extracted query for users:", query); // console
 
     if (!query) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: "Query parameter 'q' is required to search users.",
       });
+      return;
     }
 
     try {
@@ -43,10 +44,11 @@ export class SearchController {
     console.log("Controller: Step-1 - Extracted query for hashtags:", query); // console
 
     if (!query) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: "Query parameter 'q' is required to search hashtags.",
       });
+      return;
     }
 
     try {
@@ -79,10 +81,11 @@ export class SearchController {
     ); // console
 
     if (!query) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: "Query parameter 'q' is required to suggest hashtags.",
       });
+      return;
     }
 
     try {
