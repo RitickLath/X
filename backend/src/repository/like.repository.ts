@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { User, Tweet, Comment, Like } from "../models";
 
 export class LikeRepository {
-  async findById(userId: String, model: string) {
+  async findById(userId: string, model: string) {
     try {
       // Step-0: Validate ObjectId
       if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -36,7 +36,7 @@ export class LikeRepository {
     }
   }
 
-  async findLike(likedBy: String, id: String, type: string) {
+  async findLike(likedBy: string, id: string, type: string) {
     try {
       // Step-1: Check if like already exists
       let existingLike;
@@ -60,7 +60,7 @@ export class LikeRepository {
     }
   }
 
-  async deleteLike(likedBy: String, id: String, type: string) {
+  async deleteLike(likedBy: string, id: string, type: string) {
     try {
       // Step-1: Delete like based on type
       let response;
@@ -84,7 +84,7 @@ export class LikeRepository {
     }
   }
 
-  async createLike(likedBy: String, id: String, type: string) {
+  async createLike(likedBy: string, id: string, type: string) {
     try {
       // Step-1: Create like based on type
       let response;
@@ -108,7 +108,7 @@ export class LikeRepository {
     }
   }
 
-  async getLikes(id: String, type: String) {
+  async getLikes(id: string, type: string) {
     try {
       let response;
       if (type == "tweet") {

@@ -3,7 +3,7 @@ import { LikeRepository } from "../repository/like.repository";
 const likeRepository = new LikeRepository();
 
 export class LikeService {
-  async likeTweet(userId: String, tweetId: String) {
+  async likeTweet(userId: string, tweetId: string) {
     // Step-1: Validating required fields
     console.log("Service: Step-1 - Validating required fields");
     if (!userId || !tweetId) {
@@ -71,7 +71,7 @@ export class LikeService {
     }
   }
 
-  async likeComment(userId: String, commentId: String) {
+  async likeComment(userId: string, commentId: string) {
     // Step-1: Validating required fields
     console.log("Service: Step-1 - Validating required fields");
     if (!userId || !commentId) {
@@ -147,7 +147,7 @@ export class LikeService {
     }
   }
 
-  async getCount(id: String, type: String) {
+  async getCount(id: string, type: string) {
     // Step-1: Validating required fields
     console.log("Service: Step-1 - Validating required fields");
     if (!id || !type) {

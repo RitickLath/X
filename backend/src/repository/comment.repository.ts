@@ -2,7 +2,7 @@ import { Comment, Tweet, User } from "../models";
 import mongoose from "mongoose";
 
 export class CommentRepository {
-  async findById(userId: String, model: string) {
+  async findById(userId: string, model: string) {
     try {
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         return null;
@@ -33,9 +33,9 @@ export class CommentRepository {
   }
 
   async createComment(
-    author: String,
-    id: String,
-    comment: String,
+    author: string,
+    id: string,
+    comment: string,
     type: string
   ) {
     try {
@@ -68,7 +68,7 @@ export class CommentRepository {
     }
   }
 
-  async getComments(tweetId: String) {
+  async getComments(tweetId: string) {
     try {
       // Step-1: Fetching the comments and populating
       const comments = await Comment.find({

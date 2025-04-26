@@ -18,3 +18,6 @@ authRouter.post("/update", authMiddleware, authController.updateController);
 
 // forget password
 //authRouter.post("/forget", authController.forgetController);
+
+// Get user profile by ID
+authRouter.get("/profile", authMiddleware, (req, res) => {});

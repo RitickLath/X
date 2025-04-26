@@ -3,7 +3,7 @@ import { CommentRepository } from "../repository/comment.repository";
 const commentRepository = new CommentRepository();
 
 export class CommentService {
-  async commentOnTweet(userId: String, tweetId: String, comment: String) {
+  async commentOnTweet(userId: string, tweetId: string, comment: string) {
     // Step-1: Checking Require Field
     console.log("Service: Step-1 - Validating author existence"); // console
     if (!userId || !tweetId || !comment) {
@@ -65,7 +65,7 @@ export class CommentService {
     }
   }
 
-  async replyOnComment(userId: String, commentId: String, comment: String) {
+  async replyOnComment(userId: string, commentId: string, comment: string) {
     // Step-1: Checking Require Field
     console.log("Service: Step-1 - Validating author existence"); // console
     if (!userId || !commentId || !comment) {
@@ -130,7 +130,7 @@ export class CommentService {
     }
   }
 
-  async getTweet(tweetId: String) {
+  async getTweet(tweetId: string) {
     // Step-1: Checking Require Field
     console.log("Service: Step-1 - Validating tweetId existence"); // console
     if (!tweetId) {

@@ -9,7 +9,6 @@ import {
   notificationRouter,
   searchRouter,
   tweetRouter,
-  userRouter,
 } from "./routes";
 import dotenv from "dotenv";
 import { seedAuth } from "./seed/auth.seed";
@@ -38,9 +37,6 @@ app.use("/api/v1/search", searchRouter); // Done
 
 // Follow/unfollow API
 app.use("/api/v1/follow", followRouter); // Done
-
-// User and Profile API
-app.use("/api/v1/users", userRouter);
 
 // Feed and TimeLine APi
 app.use("/api/v1/feed", feedRouter);
