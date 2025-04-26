@@ -1,4 +1,4 @@
-import { z, z } from "zod";
+import { z } from "zod";
 
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;

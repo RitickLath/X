@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import AuthService from "../services/auth.service";
 import { Isignup } from "../utils";
+import { AuthenticatedRequest } from "../utils/interfaceType";
 
 const authService = new AuthService();
 
@@ -41,9 +42,8 @@ export default class AuthController {
     }
   }
 
-  async updateController(req: Request, res: Response) {
+  async updateController(req: AuthenticatedRequest, res: Response) {
     try {
-      // @ts-ignore
       const userId = req.id;
       const { bio, username } = req.body || {};
 

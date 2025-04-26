@@ -22,6 +22,7 @@ seedTweet.post("/", async (req: Request, res: Response) => {
 
       const user = await User.findOne({ _id: author });
       if (user) {
+        // @ts-ignore
         user.tweets?.push(tweet._id);
         await user.save();
       }

@@ -124,7 +124,11 @@ export default class AuthService {
     }
   }
 
-  async updateservice(bio: string, userId: string, username: string) {
+  async updateservice(
+    bio: string,
+    userId: string | undefined,
+    username: string
+  ) {
     // Step-0: Check the Fields existance
     if (!bio || !userId || !username) {
       return {

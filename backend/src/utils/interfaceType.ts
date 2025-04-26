@@ -3,3 +3,9 @@ export interface Isignup {
   password: string;
   email: string;
 }
+
+import { Request } from "express";
+
+export interface AuthenticatedRequest extends Request {
+  id?: string;
+}

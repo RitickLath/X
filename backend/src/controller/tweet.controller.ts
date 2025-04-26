@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { TweetService } from "../services/tweet.service";
+import { AuthenticatedRequest } from "../utils/interfaceType";
 
 const tweetService = new TweetService();
 
 export class TweetController {
   // Controller for posting a tweet
-  async tweetPostController(req: Request, res: Response) {
+  async tweetPostController(req: AuthenticatedRequest, res: Response) {
     // Step-1: Extract the data
     const author = req.id;
     const { content } = req.body || {};
@@ -69,7 +70,7 @@ export class TweetController {
   }
 
   // Controller for retweeting
-  async retweetController(req: Request, res: Response) {
+  async retweetController(req: AuthenticatedRequest, res: Response) {
     // Step-1: Extract the data
     const author = req.id;
     const tweetId = req.params.tweetId;

@@ -1,6 +1,8 @@
+import { CommonRepository } from "../repository/common.repository";
 import { LikeRepository } from "../repository/like.repository";
 
 const likeRepository = new LikeRepository();
+type ModelName = "user" | "tweet" | "comment" | "hashtag";
 
 export class LikeService {
   async likeTweet(userId: string, tweetId: string) {
@@ -16,7 +18,7 @@ export class LikeService {
     try {
       // Step-2: Validate User existence
       console.log("Service: Step-2 - Validating User existence");
-      const user = await likeRepository.findById(userId, "user");
+      const user = await CommonRepository.findById(userId, "user");
       if (!user) {
         return {
           success: false,
@@ -26,7 +28,7 @@ export class LikeService {
 
       // Step-3: Validate Tweet existence
       console.log("Service: Step-3 - Validating Tweet existence");
-      const tweet = await likeRepository.findById(tweetId, "tweet");
+      const tweet = await CommonRepository.findById(tweetId, "tweet");
       if (!tweet) {
         return {
           success: false,
@@ -84,7 +86,7 @@ export class LikeService {
     try {
       // Step-2: Validate User existence
       console.log("Service: Step-2 - Validating User existence");
-      const user = await likeRepository.findById(userId, "user");
+      const user = await CommonRepository.findById(userId, "user");
       if (!user) {
         return {
           success: false,
@@ -94,7 +96,7 @@ export class LikeService {
 
       // Step-3: Validate Comment existence
       console.log("Service: Step-3 - Validating Comment existence");
-      const comment = await likeRepository.findById(commentId, "comment");
+      const comment = await CommonRepository.findById(commentId, "comment");
       if (!comment) {
         return {
           success: false,
@@ -159,7 +161,10 @@ export class LikeService {
     try {
       // Step-2: Check if the id exists
       console.log("Service: Step-2 - Validating Id existence");
-      const idExists = await likeRepository.findById(id, type.toLowerCase());
+      const idExists = await CommonRepository.findById(
+        id,
+        type.toLowerCase() as ModelName
+      );
       if (!idExists) {
         return {
           success: false,

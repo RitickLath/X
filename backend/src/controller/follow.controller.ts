@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { FollowService } from "../services/follow.service";
+import { AuthenticatedRequest } from "../utils/interfaceType";
 
 const followService = new FollowService();
 
 export class FollowController {
-  async toggleFollow(req: Request, res: Response) {
+  async toggleFollow(req: AuthenticatedRequest, res: Response) {
     // Step-1: Extract userId from params and author from req.id
     const { userId } = req.body || {};
     const author = req.id;

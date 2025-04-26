@@ -1,3 +1,4 @@
+import { CommonRepository } from "../repository/common.repository";
 import { FollowRepository } from "../repository/follow.repository";
 
 const followRepository = new FollowRepository();
@@ -15,7 +16,7 @@ export class FollowService {
 
     // Step-2: Check if author exists
     console.log("Service: Step-2 - Checking if author exists"); //console
-    const authorExist = await followRepository.findUserById(author);
+    const authorExist = await CommonRepository.findById(author, "user");
     if (!authorExist) {
       return {
         success: false,
@@ -25,7 +26,7 @@ export class FollowService {
 
     // Step-3: Check if target user exists
     console.log("Service: Step-3 - Checking if target user exists"); //console
-    const userExist = await followRepository.findUserById(userId);
+    const userExist = await CommonRepository.findById(userId, "user");
     if (!userExist) {
       return {
         success: false,
@@ -34,7 +35,9 @@ export class FollowService {
     }
 
     // Step-4: Determine if already following
-    const isFollowing = authorExist.following?.includes(userId);
+
+    // @ts-ignore
+    const isFollowing = authorExist?.following?.includes(userId);
     let updatedAuthor;
 
     if (isFollowing) {
@@ -49,11 +52,14 @@ export class FollowService {
 
     // Step-6: Return success response
     console.log("Service: Step-6 - Returning response"); //console
+    //  @ts-ignore
     return {
       success: true,
       message: isFollowing
-        ? `${userExist?.username} unfollowed successfully.`
-        : `${userExist?.username} followed successfully.`,
+        ? // @ts-ignore
+          `${userExist?.username} unfollowed successfully.`
+        : // @ts-ignore
+          `${userExist?.username} followed successfully.`,
       data: updatedAuthor?.following,
     };
   }

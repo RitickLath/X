@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
 import { CommentService } from "../services/comment.service";
+import { AuthenticatedRequest } from "../utils/interfaceType";
 
 const commentService = new CommentService();
 
 export class CommentController {
-  async commentOnTweet(req: Request, res: Response) {
+  async commentOnTweet(req: AuthenticatedRequest, res: Response) {
     // Step-1: Extract the data
-    const userId = req.id;
+    const userId = req.id || "";
     const { tweetId } = req.params;
-    const { comment } = req.body || {};
+    const { comment } = req.body || "";
     console.log("Controller: Step-1 - Extracted userId, tweetId, comment"); // console
 
     try {
@@ -32,9 +33,9 @@ export class CommentController {
     }
   }
 
-  async replyOnComment(req: Request, res: Response) {
+  async replyOnComment(req: AuthenticatedRequest, res: Response) {
     // Step-1: Extract the data
-    const userId = req.id;
+    const userId = req.id || "";
     const { commentId } = req.params;
     const { comment } = req.body || {};
     console.log("Controller: Step-1 - Extracted userId, commentId, comment"); // console
