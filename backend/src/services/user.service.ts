@@ -1,5 +1,3 @@
-import { User } from "../models";
-
 export class UserService {
   // Get Profile Service
   async getProfile(userId: String, author: String) {

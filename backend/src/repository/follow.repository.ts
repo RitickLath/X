@@ -1,3 +1,4 @@
+import { response } from "express";
 import { User } from "../models";
 
 export class FollowRepository {
@@ -45,14 +46,27 @@ export class FollowRepository {
     }
   }
 
-  async getFollowersByUserId(userId: string) {
+  async getFollowerFollowingByUserId(userId: string, type: string) {
     try {
-      // Step-1: Get all users following the given userId
-      const followers = await User.find({ following: userId }).select(
-        "username"
-      );
+      // Step-1: Get all users following/follower the given userId
+      let response;
+      if (type == "followers") {
+        response = await User.find({ following: { $in: [userId] } }).select(
+          "username"
+        );
+      } else if (type == "followings") {
+        response = await User.findOne({ _id: userId })
+          .populate("following", "username")
+          .select("following");
+        if (!response) {
+          throw new Error("User not found");
+        }
+      } else {
+        throw new Error(`Failed to get ${type}`);
+      }
+
       console.log("Repository: Step-1 - Followers fetched"); //console
-      return followers;
+      return response;
     } catch (error: any) {
       console.error("Repository Error:", error.message); //console
       throw new Error("Failed to get followers");

@@ -44,8 +44,37 @@ export class FollowController {
     try {
       // Step-2: Call service to get followers
       console.log("Controller: Step-2 - Calling service to get followers"); //console
-      const response = await followService.getFollowers(userId);
+      const response = await followService.getFollowersfollowing(
+        userId,
+        "followers"
+      );
 
+      // Step-3: Return followers in response
+      console.log("Controller: Step-3 - Sending success response"); //console
+      res.status(response.success ? 200 : 400).json(response);
+    } catch (error: any) {
+      // Step-Error: Handle service-level or unexpected errors
+      console.error("Controller: Step-Error -", error.message); //console
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  }
+
+  async getFollowings(req: Request, res: Response) {
+    // Step-1: Extract userId from params
+    const { userId } = req.body || {};
+
+    console.log("Controller: Step-1 - Extracted UserID"); //console
+
+    try {
+      // Step-2: Call service to get followers
+      console.log("Controller: Step-2 - Calling service to get followers"); //console
+      const response = await followService.getFollowersfollowing(
+        userId,
+        "followings"
+      );
       // Step-3: Return followers in response
       console.log("Controller: Step-3 - Sending success response"); //console
       res.status(response.success ? 200 : 400).json(response);

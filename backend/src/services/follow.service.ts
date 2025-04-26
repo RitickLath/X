@@ -58,7 +58,7 @@ export class FollowService {
     };
   }
 
-  async getFollowers(userId: string) {
+  async getFollowersfollowing(userId: string, type: string) {
     // Step-1: Validate input
     console.log("Service: Step-1 - Validating input for getFollowers"); //console
     if (!userId) {
@@ -71,7 +71,10 @@ export class FollowService {
     try {
       // Step-2: Fetch followers from repository
       console.log("Service: Step-2 - Fetching followers from DB"); //console
-      const followers = await followRepository.getFollowersByUserId(userId);
+      const followers = await followRepository.getFollowerFollowingByUserId(
+        userId,
+        type
+      );
 
       // Step-3: Return success
       console.log("Service: Step-3 - Returning followers"); //console

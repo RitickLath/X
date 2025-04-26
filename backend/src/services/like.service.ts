@@ -1,4 +1,3 @@
-import { Comment, Tweet } from "../models";
 import { LikeRepository } from "../repository/like.repository";
 
 const likeRepository = new LikeRepository();

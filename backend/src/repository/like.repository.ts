@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { User, Tweet, Comment, Like } from "../models";
-import { response } from "express";
 
 export class LikeRepository {
   async findById(userId: String, model: string) {

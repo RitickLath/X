@@ -16,12 +16,6 @@ userRouter.get("/:userId", async (req, res) => {
   res.status(200).json({ data: user });
 });
 
-// Follow or unfollow a user
-userRouter.post("/:targetId/follow", userController.followUnfollowUser);
-
-// Get followers of a user
-userRouter.get("/:userId/followers", userController.getFollowers);
-
 // Get following users of a user
 userRouter.get("/:userId/following", userController.getFollowing);
 
