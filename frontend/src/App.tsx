@@ -1,5 +1,11 @@
+import Home from "./sections/Home";
+
 const App = () => {
-  return <div>Application</div>;
+  return (
+    <div>
+      <Home />
+    </div>
+  );
 };
 
 export default App;
