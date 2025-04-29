@@ -1,46 +1,57 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Landing from "./sections/Landing";
+import HomeRedirected from "./component/HomeRedirected";
 import ProtectedRoute from "./component/ProtectedRoute";
-import HomeRedicted from "./component/HomeRedicted";
+import {
+  Bookmark,
+  Explore,
+  Home,
+  Landing,
+  Login,
+  Message,
+  Notification,
+  Post,
+  Profile,
+  Signup,
+} from "./sections/Section";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         {/* Auth Related Routes */}
-        <Route element={<HomeRedicted />}>
+        <Route element={<HomeRedirected />}>
           {/* Landing page when user not logged in */}
           <Route path="/" element={<Landing />} />
 
           {/* Login form with landing page in BG in low opacity */}
-          <Route path="/login" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
 
           {/* Signup form with landing page in Bg low opacity */}
-          <Route path="/signup" element={<Landing />} />
+          <Route path="/signup" element={<Signup />} />
         </Route>
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           {/* Shows the basic Feed page with whats happening*/}
-          <Route path="/home" element={<h1>Home</h1>} />
+          <Route path="/home" element={<Home />} />
 
           {/* Explore - Shows the trending hashtahgs with search functionality*/}
-          <Route path="/explore" element={<h1>Explore</h1>} />
+          <Route path="/explore" element={<Explore />} />
 
           {/* Notifications */}
-          <Route path="/notifications" element={<h1>Notifications</h1>} />
+          <Route path="/notifications" element={<Notification />} />
 
           {/* Messages */}
-          <Route path="/messages" element={<h1>Messages</h1>} />
+          <Route path="/messages" element={<Message />} />
 
           {/* Profile - Contains My tweets and my reshares*/}
-          <Route path="/:username" element={<h1>Profile</h1>} />
+          <Route path="/:username" element={<Profile />} />
 
           {/* Let us compose the post with Landing page bg low opacity */}
-          <Route path="/compose/post" element={<h1>Compose Post</h1>} />
+          <Route path="/compose/post" element={<Post />} />
 
           {/* Bookmarks- Shows the tweets user bookmarked */}
-          <Route path="/bookmarks" element={<h1>Bookmarks</h1>} />
+          <Route path="/bookmarks" element={<Bookmark />} />
         </Route>
       </Routes>
     </BrowserRouter>
