@@ -1,7 +1,7 @@
 import Footer from "../component/Footer";
 import Button from "../Generic Components/Button";
 
-const homeStyles = {
+const LandingStyles = {
   wrapper: "bg-black min-h-screen",
   container:
     "p-10 md:px-36 lg:pt-24 lg:flex justify-evenly lg:space-x-14 text-white",
@@ -14,23 +14,27 @@ const homeStyles = {
   signInText: "pt-8 text-lg font-bold",
 };
 
-const Home = () => {
+const Landing = () => {
   return (
-    <div className={homeStyles.wrapper}>
-      <div className={homeStyles.container}>
+    <div className={LandingStyles.wrapper}>
+      <div className={LandingStyles.container}>
         {/* Image Section */}
-        <div className={homeStyles.imageWrapper}>
-          <img className={homeStyles.image} src="images/image.png" alt="Logo" />
+        <div className={LandingStyles.imageWrapper}>
+          <img
+            className={LandingStyles.image}
+            src="images/image.png"
+            alt="Logo"
+          />
         </div>
 
         {/* Content Section */}
-        <div className={homeStyles.contentWrapper}>
-          <h1 className={homeStyles.heading}>Happening now</h1>
-          <h2 className={homeStyles.subHeading}>Join today.</h2>
+        <div className={LandingStyles.contentWrapper}>
+          <h1 className={LandingStyles.heading}>Happening now</h1>
+          <h2 className={LandingStyles.subHeading}>Join today.</h2>
 
           <Button content="Create account" className="bg-[#1A8CD8]" />
 
-          <h3 className={homeStyles.signInText}>Already have an account?</h3>
+          <h3 className={LandingStyles.signInText}>Already have an account?</h3>
 
           <Button content="Sign in" className="text-[#1A8CD8] border-2" />
         </div>
@@ -41,4 +45,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Landing;
