@@ -2,6 +2,7 @@ import { MdOutlineCreate } from "react-icons/md";
 import Button from "../Generic Components/Button";
 import { sidebarItems } from "../constants/staticData";
 import { useNavigate } from "react-router-dom";
+import { FC } from "react";
 
 const styles = {
   container:
@@ -16,7 +17,7 @@ const styles = {
   mobileCreateIcon: "text-2xl sm:text-3xl text-black",
 };
 
-const Sidebar = () => {
+const Sidebar: FC = () => {
   const navigate = useNavigate();
   return (
     <div className={styles.container}>

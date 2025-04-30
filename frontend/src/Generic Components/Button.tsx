@@ -16,7 +16,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={`${
         size == "lg" ? "w-[240px] lg:w-[260px]" : "w-[240px] lg:w-[230px]"
-      } cursor-pointer font-semibold text-center py-2 border-gray-400 rounded-3xl 
+      } outline-none cursor-pointer font-semibold text-center py-2 border-gray-400 rounded-3xl 
         ${className}`}
       {...rest}
     >

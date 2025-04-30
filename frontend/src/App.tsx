@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomeRedirected from "./component/HomeRedirected";
-import ProtectedRoute from "./component/ProtectedRoute";
+import { HomeRedirected, ProtectedRoute } from "./component/component";
 import {
   Bookmark,
   Explore,
@@ -8,6 +7,7 @@ import {
   Landing,
   Login,
   Message,
+  NotFound,
   Notification,
   Post,
   Profile,
@@ -45,7 +45,7 @@ const App = () => {
           <Route path="/messages" element={<Message />} />
 
           {/* Profile - Contains My tweets and my reshares*/}
-          <Route path="/:username" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
 
           {/* Let us compose the post with Landing page bg low opacity */}
           <Route path="/compose/post" element={<Post />} />
@@ -53,6 +53,8 @@ const App = () => {
           {/* Bookmarks- Shows the tweets user bookmarked */}
           <Route path="/bookmarks" element={<Bookmark />} />
         </Route>
+        {/* Error Page/ Invalid Page */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

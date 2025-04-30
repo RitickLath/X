@@ -1,4 +1,6 @@
-const Explore = () => {
+import { FC } from "react";
+
+const Explore: FC = () => {
   return <div>Explore</div>;
 };
 

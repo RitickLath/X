@@ -1,4 +1,6 @@
-const Message = () => {
+import { FC } from "react";
+
+const Message: FC = () => {
   return <div>Message</div>;
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { linksFooter } from "../constants/staticData";
 
 const footerStyles = {
@@ -9,7 +9,7 @@ const footerStyles = {
   copyright: "w-full text-center pt-4",
 };
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
     <footer className={footerStyles.container}>
       {linksFooter.map((item, index) => (

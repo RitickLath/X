@@ -1,4 +1,6 @@
-const Bookmark = () => {
+import { FC } from "react";
+
+const Bookmark: FC = () => {
   return <div>Bookmark</div>;
 };
 

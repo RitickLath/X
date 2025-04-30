@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { FC } from "react";
 
-const ProtectedRoute = () => {
+const ProtectedRoute: FC = () => {
   // const isAuthenticated = localStorage.getItem("token"); // will add central place to authenticate
   return (
     <div className="bg-black flex">

@@ -1,22 +1,64 @@
-// A/B Testing in Landing page
-
-import Footer from "../component/Footer";
+import { useEffect, useState, useRef, FC } from "react";
+import { DotLoader } from "react-spinners";
+import { LandingStyles } from "../constants/style";
 import Button from "../Generic Components/Button";
+import { CTAA, CTAB, Footer } from "../component/component";
 
-const LandingStyles = {
-  wrapper: "bg-black min-h-screen",
-  container:
-    "p-10 md:px-36 lg:pt-24 lg:flex justify-evenly lg:space-x-14 text-white",
-  imageWrapper: "lg:mt-0 lg:mr-20 lg:flex items-center",
-  image: "w-[50px] h-[60px] lg:w-[300px] lg:h-[300px] object-contain",
-  contentWrapper:
-    "flex flex-col items-start lg:justify-center text-left space-y-6 max-w-[400px] pt-12 lg:pt-0",
-  heading: "tracking-wide text-5xl sm:text-7xl font-bold",
-  subHeading: "text-2xl sm:text-3xl font-extrabold pt-2",
-  signInText: "pt-8 text-lg font-bold",
-};
+const Landing: FC = () => {
+  const [testing, setTesting] = useState<"A" | "B" | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const hasResolved = useRef(false); // ref to track API resolution
 
-const Landing = () => {
+  // Will Add local-Storage logic to not let user know about testing. for lets say 5 day interval
+  // Once the user recieves the A or B they will be shown the same button for atleast 5 days.
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!hasResolved.current) {
+        const fallbackVariant = Math.random() * 10 < 5 ? "A" : "B";
+        setTesting(fallbackVariant);
+        hasResolved.current = true;
+        setLoading(false);
+        console.log(`Hit From Timeout: ${fallbackVariant}`);
+      }
+    }, 2000);
+
+    const fetchTestingVariant = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/variant");
+        const result = await response.json();
+        // We are not accepting response after 2 second (To not ruin user Experience)
+        if (!hasResolved.current) {
+          clearTimeout(timeout);
+          setTesting(result.variant);
+          hasResolved.current = true;
+          setLoading(false);
+          console.log(`Hit From API: ${result.variant}`);
+        }
+      } catch (error) {
+        console.error("A/B testing fetch failed:", error);
+        if (!hasResolved.current) {
+          const fallbackVariant = Math.random() * 10 < 5 ? "A" : "B";
+          setTesting(fallbackVariant);
+          hasResolved.current = true;
+          setLoading(false);
+          console.log(`Hit From API catch: ${fallbackVariant}`);
+        }
+      }
+    };
+
+    fetchTestingVariant();
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={LandingStyles.loaderWrapper}>
+        <DotLoader color="white" />
+      </div>
+    );
+  }
+
   return (
     <div className={LandingStyles.wrapper}>
       <div className={LandingStyles.container}>
@@ -35,12 +77,16 @@ const Landing = () => {
           <h2 className={LandingStyles.subHeading}>Join today.</h2>
 
           <Button content="Create account" className="bg-[#1A8CD8]" />
-
           <h3 className={LandingStyles.signInText}>Already have an account?</h3>
-
           <Button content="Sign in" className="text-[#1A8CD8] border-2" />
+
+          {/* Variant A CTA */}
+          {testing === "A" && <CTAA />}
         </div>
       </div>
+
+      {/* Variant B CTA */}
+      {testing === "B" && <CTAB />}
 
       <Footer />
     </div>

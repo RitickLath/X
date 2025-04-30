@@ -8,3 +8,4 @@ export { default as Post } from "./Post";
 export { default as Bookmark } from "./Bookmark";
 export { default as Login } from "./Login";
 export { default as Signup } from "./Signup";
+export { default as NotFound } from "./NotFound";
