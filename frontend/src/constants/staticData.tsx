@@ -32,3 +32,6 @@ export const sidebarItems = [
   { icon: <CiUser />, label: "Profile" },
   { icon: <FaRegBookmark />, label: "Bookmarks" },
 ];
+
+export const profileAvatar =
+  "https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg";

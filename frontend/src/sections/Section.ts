@@ -4,7 +4,7 @@ export { default as Explore } from "./Explore";
 export { default as Notification } from "./Notification";
 export { default as Message } from "./Message";
 export { default as Profile } from "./Profile";
-export { default as Post } from "./Post";
+export { default as Post } from "./ComposePost";
 export { default as Bookmark } from "./Bookmark";
 export { default as Login } from "./Login";
 export { default as Signup } from "./Signup";

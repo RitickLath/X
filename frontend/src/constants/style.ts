@@ -16,3 +16,17 @@ export const LandingStyles = {
     "bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-4 py-3 rounded-xl shadow-lg flex items-center space-x-4",
   variantBButton: "bg-white text-blue-600 font-bold px-4 rounded-md",
 };
+
+export const postStyles = {
+  wrapper:
+    "max-w-[700px] w-full flex space-x-5 bg-black p-4 border border-gray-700 text-white",
+  avatar: "w-12 h-12 rounded-full",
+  contentContainer: "flex-1",
+  textarea:
+    "w-full bg-transparent resize-none outline-none text-xl placeholder-gray-400",
+  bottomRow: "flex justify-between items-center mt-2",
+  counter: "text-sm text-gray-400",
+  postButtonBase: "text-black font-semibold px-6 py-1 rounded-full transition",
+  postButtonActive: "bg-white hover:bg-gray-200 cursor-pointer",
+  postButtonDisabled: "bg-[#787A7A]",
+};

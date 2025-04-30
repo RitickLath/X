@@ -7,7 +7,7 @@ const ProtectedRoute: FC = () => {
   return (
     <div className="bg-black flex">
       <Sidebar />
-      <div className="p-8 text-white">
+      <div className="text-white w-full">
         <Outlet />
       </div>
     </div>
