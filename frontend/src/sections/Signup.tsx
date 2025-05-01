@@ -1,7 +1,8 @@
-import { FC } from "react";
+import CreateAccountForm from "../component/CreateAccountForm";
 
-const Signup: FC = () => {
-  return <div>Signup</div>;
+const Signup = () => {
+  return <CreateAccountForm />;
 };
 
 export default Signup;
+// will make modal

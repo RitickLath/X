@@ -30,3 +30,21 @@ export const postStyles = {
   postButtonActive: "bg-white hover:bg-gray-200 cursor-pointer",
   postButtonDisabled: "bg-[#787A7A]",
 };
+
+export const formStyles = {
+  wrapper:
+    "min-h-screen bg-black text-white flex lg:items-center justify-center",
+  container:
+    "max-w-[100%] max-h-[100%] lg:max-w-[600px] lg:max-h-[600px] rounded-md p-8 lg:p-14 w-full space-y-10",
+  header: "flex justify-between items-center",
+  logo: "w-[40px] h-[40px]",
+  title: "text-3xl font-bold",
+  input:
+    "w-full bg-transparent border-[1px] border-[#71767B] rounded px-4 py-4 focus:outline-none focus:border-[#1A8CD8]",
+  label: "block text-sm font-semibold mb-1",
+  helperText: "text-xs text-gray-400 mb-2",
+  select:
+    "flex-1 bg-transparent border-[1px] border-[#71767B] rounded px-2 py-4 text-white",
+  submit:
+    "w-full cursor-pointer bg-[#787A7A] hover:bg-gray-200 transition font-semibold text-black py-3 rounded-full mt-4",
+};
