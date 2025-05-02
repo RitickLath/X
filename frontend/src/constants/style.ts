@@ -1,7 +1,7 @@
 export const LandingStyles = {
-  wrapper: "bg-black min-h-screen",
+  wrapper: "z-0 bg-black min-h-screen",
   container:
-    "p-10 md:px-36 lg:pt-24 lg:flex justify-evenly lg:space-x-14 text-white",
+    "z-0 p-10 md:px-36 lg:pt-24 lg:flex justify-evenly lg:space-x-14 text-white",
   imageWrapper: "lg:mt-0 lg:mr-20 lg:flex items-center",
   image: "w-[50px] h-[60px] lg:w-[300px] lg:h-[300px] object-contain",
   contentWrapper:
@@ -19,7 +19,7 @@ export const LandingStyles = {
 
 export const postStyles = {
   wrapper:
-    "max-w-[700px] w-full flex space-x-5 bg-black p-4 border border-gray-700 text-white",
+    "max-w-[700px] w-full bg-black flex space-x-5 bg-black p-4 border border-gray-700 text-white",
   avatar: "w-12 h-12 rounded-full",
   contentContainer: "flex-1",
   textarea:
@@ -32,19 +32,24 @@ export const postStyles = {
 };
 
 export const formStyles = {
-  wrapper:
-    "min-h-screen bg-black text-white flex lg:items-center justify-center",
+  wrapper: "min-h-screen z-50 text-white flex lg:items-center justify-center",
   container:
-    "max-w-[100%] max-h-[100%] lg:max-w-[600px] lg:max-h-[600px] rounded-md p-8 lg:p-14 w-full space-y-10",
+    "max-w-[100%] z-10 bg-black lg:max-w-[600px] rounded-md p-8 lg:p-14 w-full space-y-10",
   header: "flex justify-between items-center",
+  close: "text-2xl font-bold cursor-pointer",
   logo: "w-[40px] h-[40px]",
+  spacer: "w-6",
   title: "text-3xl font-bold",
+  form: "space-y-4",
   input:
-    "w-full bg-transparent border-[1px] border-[#71767B] rounded px-4 py-4 focus:outline-none focus:border-[#1A8CD8]",
+    "w-full bg-transparent border border-[#71767B] rounded px-4 py-4 focus:outline-none focus:border-[#1A8CD8]",
   label: "block text-sm font-semibold mb-1",
   helperText: "text-xs text-gray-400 mb-2",
   select:
-    "flex-1 bg-transparent border-[1px] border-[#71767B] rounded px-2 py-4 text-white",
+    "flex-1 bg-transparent border border-[#71767B] rounded px-2 py-4 text-white",
+  dateRow: "flex gap-2",
   submit:
     "w-full cursor-pointer bg-[#787A7A] hover:bg-gray-200 transition font-semibold text-black py-3 rounded-full mt-4",
+  toggleText: "mt-8 text-sm",
+  toggleLink: "text-[#1A8CD8] cursor-pointer font-semibold",
 };

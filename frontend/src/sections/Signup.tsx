@@ -1,8 +1,11 @@
 import CreateAccountForm from "../component/CreateAccountForm";
 
 const Signup = () => {
-  return <CreateAccountForm />;
+  return (
+    <div className="">
+      <CreateAccountForm mode="signup" />
+    </div>
+  );
 };
 
 export default Signup;
-// will make modal

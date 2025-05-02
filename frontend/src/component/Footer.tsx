@@ -3,7 +3,7 @@ import { linksFooter } from "../constants/staticData";
 
 const footerStyles = {
   container:
-    "w-full py-6 px-3 lg:px-12 bg-black text-gray-400 text-xs flex flex-wrap justify-center items-center gap-x-2 gap-y-3",
+    "w-full z-0 py-6 px-3 lg:px-12 bg-black text-gray-400 text-xs flex flex-wrap justify-center items-center gap-x-2 gap-y-3",
   link: "hover:underline whitespace-nowrap",
   separator: "hidden sm:inline",
   copyright: "w-full text-center pt-4",
