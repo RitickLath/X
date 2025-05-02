@@ -95,9 +95,9 @@ const Signup = () => {
 
           {error.length > 0 && (
             <div className="text-red-500 space-y-1">
-              {error.map((msg, i) => (
-                <p key={i}>{msg}</p>
-              ))}
+              {error.length > 0 && (
+                <div className="text-red-500 space-y-1">{error[0]}</div>
+              )}
             </div>
           )}
 
