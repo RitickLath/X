@@ -11,6 +11,7 @@ import {
   tweetRouter,
 } from "./routes";
 import dotenv from "dotenv";
+import cors from "cors";
 import { seedAuth } from "./seed/auth.seed";
 import { seedTweet } from "./seed/tweet.seed";
 
@@ -18,6 +19,7 @@ dotenv.config();
 
 export const app: Application = express();
 
+app.use(cors());
 app.use(express.json());
 
 // Authentication API
