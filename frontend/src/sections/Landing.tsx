@@ -58,7 +58,13 @@ const Landing: FC = () => {
             className="bg-[#1A8CD8]"
           />
           <h3 className={LandingStyles.signInText}>Already have an account?</h3>
-          <Button content="Sign in" className="text-[#1A8CD8] border-2" />
+          <Button
+            onClick={() => {
+              navigate("/login");
+            }}
+            content="Sign in"
+            className="text-[#1A8CD8] border-2"
+          />
 
           {/* Variant A CTA */}
           {testing === "A" && <CTAA />}

@@ -1,6 +1,4 @@
-import { FC } from "react";
-
-const ComposePost: FC = () => {
+const ComposePost = () => {
   return <div>ComposePost</div>;
 };
 

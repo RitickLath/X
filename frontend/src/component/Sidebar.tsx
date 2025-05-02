@@ -2,7 +2,7 @@ import { MdOutlineCreate } from "react-icons/md";
 import Button from "../Generic Components/Button";
 import { sidebarItems } from "../constants/staticData";
 import { useNavigate } from "react-router-dom";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 const styles = {
   container:
@@ -18,39 +18,51 @@ const styles = {
 };
 
 const Sidebar: FC = () => {
+  const [show, setShow] = useState(true);
   const navigate = useNavigate();
-  return (
-    <div className={styles.container}>
-      {/* Logo */}
-      <img className={styles.logo} src="images/image.png" alt="Logo" />
 
-      {/* Sidebar navigation items */}
-      {sidebarItems.map((item, index) => (
-        <div
-          key={index}
-          className={styles.menuItem}
-          onClick={() => navigate(item.label)}
-        >
-          <span className={styles.icon}>{item.icon}</span>
-          <span className={styles.label}>{item.label}</span>
+  if (show)
+    return (
+      <div className={styles.container}>
+        {/* Logo */}
+        <img className={styles.logo} src="images/image.png" alt="Logo" />
+
+        {/* Sidebar navigation items */}
+        {sidebarItems.map((item, index) => (
+          <div
+            key={index}
+            className={styles.menuItem}
+            onClick={() => navigate(item.label)}
+          >
+            <span className={styles.icon}>{item.icon}</span>
+            <span className={styles.label}>{item.label}</span>
+          </div>
+        ))}
+
+        {/* Desktop "Post" button */}
+        <div className={styles.desktopButton}>
+          <Button
+            onClick={() => {
+              navigate("/compose/post");
+            }}
+            content="Post"
+            className="bg-white hover:bg-[#D7DBDC] text-lg text-black"
+            size="md"
+          />
         </div>
-      ))}
 
-      {/* Desktop "Post" button */}
-      <div className={styles.desktopButton}>
-        <Button
-          content="Post"
-          className="bg-white hover:bg-[#D7DBDC] text-lg text-black"
-          size="md"
-        />
+        {/* Mobile Create button */}
+        <div className={styles.mobileCreateWrapper}>
+          <MdOutlineCreate
+            onClick={() => {
+              // setShow(false);
+              navigate("/compose/post");
+            }}
+            className={styles.mobileCreateIcon}
+          />
+        </div>
       </div>
-
-      {/* Mobile Create button */}
-      <div className={styles.mobileCreateWrapper}>
-        <MdOutlineCreate className={styles.mobileCreateIcon} />
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Sidebar;

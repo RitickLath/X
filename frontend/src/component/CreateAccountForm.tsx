@@ -16,6 +16,8 @@ const AuthForm = ({ mode }: AuthFormProps) => {
     ? ["Already have an account?", "Login", "/login"]
     : ["Don't have an account?", "Sign up", "/signup"];
 
+  const handleSubmit = () => {};
+
   return (
     <div className={formStyles.wrapper}>
       <div className={formStyles.container}>
@@ -34,7 +36,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
         </h2>
 
         {/* Form */}
-        <form className={formStyles.form}>
+        <form onSubmit={handleSubmit} className={formStyles.form}>
           {isSignup && (
             <input
               type="text"
