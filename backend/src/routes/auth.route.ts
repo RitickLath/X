@@ -12,6 +12,11 @@ authRouter.post("/signup", authController.signupController);
 // signin
 authRouter.post("/signin", authController.signinController);
 
+// validate token
+authRouter.get("/token", authMiddleware, (req, res) => {
+  res.status(200).json({ status: true, message: "Token Validated" });
+});
+
 // update profile
 
 authRouter.post("/update", authMiddleware, authController.updateController);
