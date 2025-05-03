@@ -2,29 +2,30 @@ import Landing from "./Landing";
 import { useNavigate } from "react-router-dom";
 import { formStyles } from "../constants/style";
 import { useState } from "react";
-import { SignInDataSanitization } from "../utils/zodSchema";
+import { signinhandler } from "../utils/signinLogic";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState<string[]>([]);
+  const [message, setMessage] = useState<string>("");
+  const [status, setStatus] = useState<boolean | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const { email, password } = Object.fromEntries(formData.entries());
-
-    const sanitized = SignInDataSanitization.safeParse({ email, password });
-
-    if (!sanitized.success) {
-      const messages = sanitized.error.errors.map((e) => e.message);
-      setError(messages);
-      return;
+    const { email, password } = Object.fromEntries(formData.entries()) as {
+      email: string;
+      password: string;
+    };
+    // Pass data to signinhandler
+    const response = await signinhandler(email, password);
+   
+    setStatus(response.status);
+    setMessage(response.message);
+    // add the token in local Storage
+    if (response.status) {
+      localStorage.setItem("authorization", `Bearer ${response.data.token}`);
+      navigate("/home");
     }
-
-    setError([]);
-
-    console.log("Login credentials:", { email, password });
-    // api integrayion
   };
 
   return (
@@ -63,8 +64,16 @@ const Login = () => {
           />
 
           {/* Display validation errors */}
-          {error.length > 0 && (
-            <div className="text-red-500 space-y-1">{error[0]}</div>
+          {status !== null && (
+            <div
+              className={
+                status
+                  ? "text-green-600 text-sm py-2"
+                  : "text-red-500 text-sm py-2"
+              }
+            >
+              {message}
+            </div>
           )}
 
           <p className={formStyles.toggleText}>

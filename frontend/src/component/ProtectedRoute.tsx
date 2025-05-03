@@ -1,9 +1,43 @@
-import { Outlet } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import axios from "axios";
 
 const ProtectedRoute: FC = () => {
-  // const isAuthenticated = localStorage.getItem("token"); // will add central place to authenticate
+  const navigate = useNavigate();
+  const token = localStorage.getItem("authorization");
+  const [validate, setValidate] = useState<null | boolean>(null);
+
+  useEffect(() => {
+    const validateToken = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/auth/token",
+          {
+            headers: { authorization: token },
+          }
+        );
+        setValidate(response.data.status);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        setValidate(false);
+      }
+    };
+
+    validateToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (validate === null) {
+    return <div className="text-white p-4">Checking authentication...</div>;
+  }
+
+  if (!validate) {
+    navigate("/login");
+    return null;
+  }
+
   return (
     <div className="bg-black flex">
       <Sidebar />
@@ -15,8 +49,3 @@ const ProtectedRoute: FC = () => {
 };
 
 export default ProtectedRoute;
-
-// const ProtectedRoute = () => {
-//   const isAuthenticated = localStorage.getItem("token"); // will add central place to authenticate
-//   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
-// };
