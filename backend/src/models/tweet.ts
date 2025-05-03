@@ -6,6 +6,10 @@ interface ITweet extends Document {
   image?: string;
   retweet?: mongoose.Types.ObjectId;
   original?: boolean;
+  createdAt: Date;
+  likeCount: number;
+  commentCount: number;
+  retweetCount: number;
 }
 
 const tweetSchema: Schema<ITweet> = new mongoose.Schema({
@@ -36,6 +40,19 @@ const tweetSchema: Schema<ITweet> = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  likeCount: {
+    type: Number,
+    default: 0,
+  },
+  commentCount: {
+    type: Number,
+    default: 0,
+  },
+  retweetCount: {
+    type: Number,
+    default: 0,
+  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 export const Tweet: Model<ITweet> = mongoose.model("Tweet", tweetSchema);

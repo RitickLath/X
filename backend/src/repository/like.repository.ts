@@ -67,10 +67,20 @@ export class LikeRepository {
 
       if (type === "tweet") {
         response = await Like.findOneAndDelete({ likedBy, tweetId: id });
+        let likeupdate = await Tweet.findById(id);
+        if (likeupdate) {
+          likeupdate.likeCount -= 1;
+          await likeupdate.save();
+        }
         console.log("Repository: Step-1 - Tweet like deleted");
       }
       if (type === "comment") {
         response = await Like.findOneAndDelete({ likedBy, commentId: id });
+        let likeupdate = await Comment.findById(id);
+        if (likeupdate) {
+          likeupdate.likeCount -= 1;
+          await likeupdate.save();
+        }
         console.log("Repository: Step-1 - Comment like deleted");
       }
 
@@ -91,10 +101,20 @@ export class LikeRepository {
 
       if (type === "tweet") {
         response = await Like.create({ likedBy, tweetId: id });
+        let likeupdate = await Tweet.findById(id);
+        if (likeupdate) {
+          likeupdate.likeCount += 1;
+          await likeupdate.save();
+        }
         console.log("Repository: Step-1 - Tweet like created");
       }
       if (type === "comment") {
         response = await Like.create({ likedBy, commentId: id });
+        let likeupdate = await Comment.findById(id);
+        if (likeupdate) {
+          likeupdate.likeCount += 1;
+          await likeupdate.save();
+        }
         console.log("Repository: Step-1 - Comment like created");
       }
 

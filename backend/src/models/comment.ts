@@ -5,7 +5,10 @@ interface IComment extends Document {
   comment: string;
   likeId?: mongoose.Types.ObjectId;
   tweetId?: mongoose.Types.ObjectId;
+  createdAt: Date;
   commentId?: mongoose.Types.ObjectId;
+  likeCount: number;
+  commentCount: number;
 }
 
 // note we are not connecting the hashtag implementation on comment section (v2 maybe)
@@ -29,6 +32,15 @@ const commentSchema: Schema<IComment> = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "Comment",
   },
+  likeCount: {
+    type: Number,
+    default: 0,
+  },
+  commentCount: {
+    type: Number,
+    default: 0,
+  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 export const Comment: Model<IComment> = mongoose.model(

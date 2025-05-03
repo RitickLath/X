@@ -3,6 +3,7 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 interface IHashtag extends Document {
   tag: string;
   tweetIds: mongoose.Types.ObjectId[];
+  createdAt: Date;
 }
 
 const hashTagSchema: Schema<IHashtag> = new mongoose.Schema({
@@ -20,6 +21,7 @@ const hashTagSchema: Schema<IHashtag> = new mongoose.Schema({
       ref: "Tweet",
     },
   ],
+  createdAt: { type: Date, default: Date.now },
 });
 
 export const HashTag: Model<IHashtag> = mongoose.model(

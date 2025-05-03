@@ -4,6 +4,7 @@ interface ILike extends Document {
   likedBy: mongoose.Types.ObjectId;
   tweetId?: mongoose.Types.ObjectId;
   commentId?: mongoose.Types.ObjectId;
+  createdAt: Date;
 }
 
 const likeSchema: Schema<ILike> = new mongoose.Schema({
@@ -20,6 +21,7 @@ const likeSchema: Schema<ILike> = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "Comment",
   },
+  createdAt: { type: Date, default: Date.now },
 });
 
 export const Like: Model<ILike> = mongoose.model("Like", likeSchema);

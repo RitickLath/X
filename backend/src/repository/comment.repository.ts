@@ -58,6 +58,13 @@ export class CommentRepository {
         console.log("Repository: Step-1 - Comment creation complete.");
       }
 
+      // Update the count of comment in Tweet
+      const commentCountUpdate = await Tweet.findById(id);
+      if (commentCountUpdate) {
+        commentCountUpdate.commentCount += 1;
+        await commentCountUpdate.save();
+      }
+
       return response;
     } catch (error: any) {
       console.error(
@@ -89,3 +96,5 @@ export class CommentRepository {
     }
   }
 }
+
+// we have not implemented the delete the comment repository and api too.

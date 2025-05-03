@@ -129,6 +129,11 @@ export class TweetRepository {
         author,
         original: false,
       });
+      // Update the count of retweet
+      const originalTweet = await Tweet.findById(tweetId);
+      if (originalTweet) {
+        originalTweet.retweetCount += 1;
+      }
 
       console.log("Repository: Step-1 - Retweet created");
       return retweet;

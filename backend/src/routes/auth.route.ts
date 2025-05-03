@@ -25,4 +25,8 @@ authRouter.post("/update", authMiddleware, authController.updateController);
 //authRouter.post("/forget", authController.forgetController);
 
 // Get user profile by ID
+// get the username, bio, edit option, when joined, total follower, total followings, posts, replies, saved
+// recent 10 recent posts atleast.
+// recent 10 replies.
+// recent 10 saved tweets with option to ascend and descend
 authRouter.get("/profile", authMiddleware, (req, res) => {});
