@@ -19,16 +19,16 @@ export const LandingStyles = {
 
 export const postStyles = {
   wrapper:
-    "max-w-[700px] w-full bg-black flex space-x-5 bg-black p-4 border border-gray-700 text-white",
-  avatar: "w-12 h-12 rounded-full",
+    "max-w-[700px] w-full bg-black flex items-start space-x-3 sm:space-x-5 p-4 border-b border-gray-800 text-white",
+  avatar: "w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover",
   contentContainer: "flex-1",
   textarea:
-    "w-full bg-transparent resize-none outline-none text-xl placeholder-gray-400",
-  bottomRow: "flex justify-between items-center mt-2",
-  counter: "text-sm text-gray-400",
-  postButtonBase: "text-black font-semibold px-6 py-1 rounded-full transition",
+    "w-full outline-none bg-transparent resize-none text-lg sm:text-xl placeholder-gray-400 p-2 rounded-md",
+  bottomRow: "flex justify-between items-center mt-3",
+  postButtonBase:
+    "text-black font-semibold px-5 py-1.5 rounded-full transition duration-150",
   postButtonActive: "bg-white hover:bg-gray-200 cursor-pointer",
-  postButtonDisabled: "bg-[#787A7A]",
+  postButtonDisabled: "bg-[#787A7A] cursor-not-allowed",
 };
 
 export const formStyles = {

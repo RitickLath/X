@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import Post from "../component/Post";
 import TabButton from "../component/TabButton";
+import SingleTweetCard from "../component/SingleTweetCard";
 
 const tabs = ["For you", "Following", "Trending"];
 
@@ -20,6 +21,7 @@ const Home: FC = () => {
         ))}
       </div>
       <Post />
+      <SingleTweetCard />
     </div>
   );
 };
