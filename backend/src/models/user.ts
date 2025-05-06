@@ -1,4 +1,5 @@
 import mongoose, { Model, Schema, Document, ValidatorProps } from "mongoose";
+import bcrypt from "bcrypt";
 
 interface IUser extends Document {
   username: string;
@@ -7,6 +8,7 @@ interface IUser extends Document {
   bio?: string;
   following?: mongoose.Types.ObjectId[];
   tweets?: mongoose.Types.ObjectId[];
+  isPasswordCorrect: (password: string) => Promise<boolean>;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -59,5 +61,17 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
     },
   ],
 });
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 8);
+  next();
+});
+
+userSchema.methods.isPasswordCorrect = async function (
+  password: string
+): Promise<boolean> {
+  return await bcrypt.compare(password, this.password);
+};
 
 export const User: Model<IUser> = mongoose.model("User", userSchema);

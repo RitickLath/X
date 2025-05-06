@@ -1,5 +1,5 @@
 import AuthRepository from "../repository/auth.repository";
-import bcrypt from "bcrypt";
+
 import {
   SignInDataSanitization,
   SignUpDataSanitization,
@@ -44,18 +44,14 @@ export default class AuthService {
       }
       console.log("Service Layer: Step-3");
 
-      // Step 4: Hash the password
-      const hashedPassword = await bcrypt.hash(password, 8);
+      // Step 4: Create the user record in the database
+      await authRepository.createUser(email, password, username);
       console.log("Service Layer: Step-4");
 
-      // Step 5: Create the user record in the database
-      await authRepository.createUser(email, hashedPassword, username);
-      console.log("Service Layer: Step-5");
-
-      // Step 6: Return success response
+      // Step 5: Return success response
       return { success: true, message: "User registered successfully" };
     } catch (error: any) {
-      // Step 7: Catch and log Error
+      // Step 6: Catch and log Error
       console.error("Error in AuthService: Sign up", error.message);
       throw new Error("Service error during signup");
     }
@@ -92,7 +88,7 @@ export default class AuthService {
       console.log("Service Layer: Step-3");
 
       // Step 4: Compare the input password with hashed password from DB
-      const isPasswordValid = await bcrypt.compare(password, user.password);
+      const isPasswordValid = await user.isPasswordCorrect(password);
       if (!isPasswordValid) {
         return { success: false, message: "Wrong Credentials" };
       }
