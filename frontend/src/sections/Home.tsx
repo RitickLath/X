@@ -1,75 +1,52 @@
 import { FC, useState } from "react";
-import Post from "../component/Post";
-import TabButton from "../component/TabButton";
-import SingleTweetCard from "../component/SingleTweetCard";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
-const tabs = ["For you", "Following", "Trending"];
-
-const getTweets = async () => {
-  const token = localStorage.getItem("authorization");
-
-  const response = await axios.get("http://localhost:3000/api/v1/feed", {
-    headers: { Authorization: token },
-  });
-  return response;
-};
+import { tabs } from "../constants/tabs";
+import {
+  Post,
+  SingleTweetCard,
+  SkeletonTweetCard,
+  TabButton,
+} from "../component/component";
+import { getTweets } from "../utils/getTweet";
 
 const Home: FC = () => {
-  const [mode, setMode] = useState<string>("For you");
+  const [mode, setMode] = useState<number>(0);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["tweets"],
-    queryFn: getTweets,
+    queryKey: ["tweets", tabs[mode].title],
+    queryFn: () => getTweets(tabs[mode].path, 0),
   });
-  console.log(data?.data.data);
-
-  if (isLoading) {
-    return (
-      <>
-        <div className="max-w-[700px] border border-gray-700 flex w-full">
-          {tabs.map((tab) => (
-            <TabButton
-              key={tab}
-              label={tab}
-              isActive={mode === tab}
-              onClick={() => setMode(tab)}
-            />
-          ))}
-        </div>
-        <Post />
-        <SingleTweetCard />
-      </>
-    );
-  }
 
   return (
     <div id="home">
       <div className="max-w-[700px] border border-gray-700 flex w-full">
-        {tabs.map((tab) => (
+        {tabs.map((tab, index) => (
           <TabButton
-            key={tab}
-            label={tab}
-            isActive={mode === tab}
-            onClick={() => setMode(tab)}
+            key={tab.title}
+            label={tab.title}
+            isActive={tabs[mode].title === tab.title}
+            onClick={() => setMode(index)}
           />
         ))}
       </div>
       <Post />
-      {data?.data.data.map((element) => (
-        <SingleTweetCard
-          key={element._id}
-          id={element._id}
-          username={element.author?.username || "rr"}
-          commentCount={element.commentCount}
-          likeCount={element.likeCount}
-          content={element.content}
-          retweetCount={element.retweetCount}
-          original={element.original}
-          createdAt={element.createdAt}
-        />
-      ))}
+
+      {isLoading
+        ? [...Array(5)].map((_, i) => <SkeletonTweetCard key={i} />)
+        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          data?.data.data.map((element: any) => (
+            <SingleTweetCard
+              key={element?._id}
+              id={element?._id}
+              username={element?.author?.username || "rr"}
+              commentCount={element?.commentCount}
+              likeCount={element?.likeCount}
+              content={element?.content}
+              retweetCount={element?.retweetCount}
+              original={element?.original}
+              createdAt={element?.createdAt}
+            />
+          ))}
     </div>
   );
 };

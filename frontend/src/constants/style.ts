@@ -19,7 +19,7 @@ export const LandingStyles = {
 
 export const postStyles = {
   wrapper:
-    "max-w-[700px] w-full bg-black flex items-start space-x-3 sm:space-x-5 p-4 border-b border-gray-800 text-white",
+    "border-r-2 border-gray-700 max-w-[700px] w-full bg-black flex items-start space-x-3 sm:space-x-5 p-4 border-b border-gray-800 text-white",
   avatar: "w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover",
   contentContainer: "flex-1",
   textarea:

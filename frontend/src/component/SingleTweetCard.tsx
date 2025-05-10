@@ -27,6 +27,7 @@ const SingleTweetCard = ({
 }: SingleTweetCardProps) => {
   const createdDate = new Date(createdAt);
   const isDateValid = isValid(createdDate);
+  console.log(id);
 
   const timeAgo = isDateValid
     ? formatDistanceToNowStrict(createdDate, { addSuffix: true })
