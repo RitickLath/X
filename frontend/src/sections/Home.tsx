@@ -45,7 +45,7 @@ const Home: FC = () => {
   }
 
   return (
-    <div>
+    <div id="home">
       <div className="max-w-[700px] border border-gray-700 flex w-full">
         {tabs.map((tab) => (
           <TabButton

@@ -26,7 +26,7 @@ const ProtectedRoute: FC = () => {
     };
 
     validateToken();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (validate === null) {
@@ -40,7 +40,9 @@ const ProtectedRoute: FC = () => {
 
   return (
     <div className="bg-black flex">
-      <Sidebar />
+      <div className="sticky top-0">
+        <Sidebar />
+      </div>
       <div className="text-white w-full">
         <Outlet />
       </div>

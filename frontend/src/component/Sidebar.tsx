@@ -6,7 +6,7 @@ import { FC, useState } from "react";
 
 const styles = {
   container:
-    "flex bg-black border-r-[1px] border-[#71767B] text-white min-h-screen flex-col space-y-4 p-4 lg:p-10 w-[80px] lg:w-[310px]",
+    "sticky top-0 flex bg-black border-r-[1px] border-[#71767B] text-white min-h-screen flex-col space-y-4 p-4 lg:p-10 w-[80px] lg:w-[310px]",
   logo: "w-[30px] h-[40px] object-contain",
   menuItem: "flex space-x-3 cursor-pointer hover:bg-[#181818] p-2 rounded-lg",
   icon: "text-2xl sm:text-3xl",
