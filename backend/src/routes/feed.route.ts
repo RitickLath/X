@@ -1,5 +1,4 @@
 import express from "express";
-import { Tweet } from "../models";
 import { authMiddleware } from "../middlewares";
 import { FeedController } from "../controller/feed.controller";
 
@@ -18,10 +17,14 @@ feedRouter.get("/trending", authMiddleware, feedController.getTrending);
 feedRouter.get("/following", authMiddleware, feedController.getFollowingTweet);
 
 // Our API Design for Feed
-// For Basic API of Feed:-
-// 1. Showing the Feed based on Liked Tweets, hashtags Included
-// 2. Latest one.
 
-// For Get Tweets of who'm we follow again based on latest tweets.
-
-// Get Latest. (The tweets of what hashtags get most likes)
+// 1. /feed/latest?page=0 - Fetches the most recent tweets across the platform, sorted by creation date (descending).
+//    Supports pagination via the 'page' query parameter. Shows the latest 10 tweets per page.
+//
+// 2. /feed/trending?page=0 - Fetches trending tweets based on weighted engagement, considering likes, retweets, and comments.
+//    The engagement weight is: likes (1x), comments (1.5x), and retweets (2x).
+//    Sorted by engagement score with a fallback to 'createdAt' for tie-breaking. Supports pagination.
+//
+// 3. /feed/following?page=0 - Fetches tweets from users the current logged-in user is following, sorted by creation date (descending).
+//    Only shows tweets from users the authenticated user follows. Supports pagination via the 'page' query parameter.
+//
