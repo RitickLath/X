@@ -12,8 +12,7 @@ import {
 } from "./routes";
 import dotenv from "dotenv";
 import cors from "cors";
-import { seedAuth } from "./seed/auth.seed";
-import { seedTweet } from "./seed/tweet.seed";
+//import { seedData } from "./seed/seed";
 
 dotenv.config();
 
@@ -21,6 +20,9 @@ export const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Seeding the data
+//seedData();
 
 // Authentication API
 app.use("/api/v1/auth", authRouter); // Done
@@ -48,9 +50,3 @@ app.use("/api/v1/notification", notificationRouter);
 
 // Media API
 app.use("/api/v1/media", mediaRouter);
-
-// seedings
-// seed data API endpoints
-app.use("/api/seed/auth", seedAuth);
-
-app.use("/api/seed/tweet", seedTweet);
