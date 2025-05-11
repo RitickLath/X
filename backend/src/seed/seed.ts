@@ -12,7 +12,7 @@ export const seedData = async () => {
       Comment.deleteMany({}),
       HashTag.deleteMany({}),
     ]);
-    console.log("🧹 Cleared old data");
+    console.log("Cleared old data");
 
     const users = [];
     for (let i = 0; i < 20; i++) {
@@ -84,6 +84,6 @@ export const seedData = async () => {
 
     console.log("Seeding completed!");
   } catch (err) {
-    console.error("❌ Error seeding data:", err);
+    console.error("Error seeding data:", err);
   }
 };

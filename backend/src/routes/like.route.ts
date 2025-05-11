@@ -15,5 +15,5 @@ likeRouter.post(
   likeController.likeComment
 );
 
-// Get Like Count on comment/tweet
-likeRouter.get("/count", authMiddleware, likeController.getCount);
+// Get Users who liked a tweet
+likeRouter.get("/liked-users", authMiddleware, likeController.getLikedUsers);

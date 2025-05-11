@@ -128,30 +128,30 @@ export class LikeRepository {
     }
   }
 
-  async getLikes(id: string, type: string) {
+  async getLikedUsers(id: string, type: string) {
     try {
-      let response;
-      if (type == "tweet") {
-        response = await Like.find({ tweetId: id }).populate(
-          "likedBy",
-          "username"
-        );
+      let likes = [];
+
+      if (type === "tweet") {
+        likes = await Like.find({ tweetId: id })
+          .populate("likedBy", "username email")
+          .select("likedBy");
+      } else if (type === "comment") {
+        likes = await Like.find({ commentId: id })
+          .populate("likedBy", "username email")
+          .select("likedBy");
       }
-      if (type == "comment") {
-        response = await Like.find({ commentId: id }).populate(
-          "likedBy",
-          "username"
-        );
-      } else {
-        response = null;
-      }
-      return response;
+
+      // Extract only user info
+      const users = likes.map((like) => like.likedBy);
+
+      return users;
     } catch (error: any) {
       console.error(
-        "Repository: Step-Error - like Count failed:",
+        "Repository: Step-Error - Failed to fetch liked users:",
         error.message
       );
-      throw new Error("Failed to fetch likes");
+      throw new Error("Failed to fetch liked users");
     }
   }
 }

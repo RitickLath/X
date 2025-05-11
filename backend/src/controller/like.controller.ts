@@ -53,22 +53,25 @@ export class LikeController {
     }
   }
 
-  async getCount(req: Request, res: Response) {
-    const { id } = req.body || "";
-    const { type } = req.body || ""; // comment or tweet
-    console.log("Controller: Step-1 - Extracted commentId and userId"); // console
+  // will change this
+  async getLikedUsers(req: Request, res: Response) {
+    const { id, type } = req.body;
+
+    console.log("Controller: Step-1 - Extracted tweetId from query params");
 
     try {
-      // Step-2: Pass the data to service layer
-      const response = await likeService.getCount(id, type);
-      console.log("Controller: Step-2 - Service response received"); // console
+      // Step-2: Pass data to service layer
+      const response = await likeService.getLikedUsers(
+        id as string,
+        type as string
+      );
+      console.log("Controller: Step-2 - Service response received");
 
-      // Step-3: Return the response (Conditional)
+      // Step-3: Return response
       res.status(response.success ? 200 : 400).json(response);
-      console.log("Controller: Step-3 - Response sent to client"); // console
+      console.log("Controller: Step-3 - Response sent to client");
     } catch (error: any) {
-      // Step-Error: Error handling
-      console.error("Controller: Step-Error -", error.message); // console
+      console.error("Controller: Step-Error -", error.message);
       res.status(500).json({
         success: false,
         message: "Internal server error",
