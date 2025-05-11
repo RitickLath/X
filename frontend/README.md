@@ -1,54 +1,108 @@
-# React + TypeScript + Vite
+# X-Clone Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, full-featured Twitter (X) clone frontend built using React, TypeScript, React Query, and React Router. This project replicates core user, tweet, and engagement functionalities, while supporting A/B testing and optimized performance.
 
-Currently, two official plugins are available:
+## Functional Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### User Features
 
-## Expanding the ESLint configuration
+- **Authentication**: Secure sign up & login (JWT-based).
+- **Profile Viewing**: (Planned) See user bio, followers, and username.
+- **Edit Bio**: (Planned) Interface to update user bio.
+- **Follow/Unfollow**: (Planned) Button and logic to follow/unfollow users.
+- **User Search**: (Planned) Search users by username or name.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Tweeting Features
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Create Tweet**: Compose and post new tweets.
+- **270-Char Limit**: Validated on frontend.
+- **Image Upload**: (Planned) Add media to tweets.
+- **Retweet**: (Planned) Re-share tweets (original content preserved).
+- **Comments**: (Planned) Reply to tweets (nesting and @mentions planned).
+- **Likes**: (Planned) Like/unlike tweets.
+- **Mentions**: (Planned) Syntax support for @username (highlighted UI coming).
+- **Hashtags**: (Planned) Highlighted and extracted from tweet text.
+- **Hashtag Suggestions**: (Planned) Shown as users type.
+- **Search by Hashtag**: (Planned) Discover tweets by tag.
+
+### Notifications (v2)
+
+- Placeholder support for:
+
+  - Mentions
+  - Likes
+  - Follows
+  - Comments
+
+### Feed & Engagement
+
+- **Personalized Feed Tabs**:
+
+  - For You
+  - Trending
+  - Following
+
+- **Pagination**: (Planned) Load tweets in pages for better UX.
+- **Post Composer**: Add tweets inline on the feed.
+- **Shimmer UI**: Smooth loading experience with skeleton cards.
+
+## A/B Testing Support
+
+- **Client-side variant allocation** via `localStorage`.
+- Components like CTA and Landing layout vary based on "A" or "B" assignment.
+- (Planned) Server-driven A/B support & analytics integration.
+
+## Tech Stack
+
+| Area       | Tool/Library         |
+| ---------- | -------------------- |
+| Language   | TypeScript           |
+| Framework  | React                |
+| State      | React Query          |
+| Routing    | React Router DOM     |
+| API Client | Axios                |
+| Styling    | TailwindCSS / Custom |
+| Loaders    | React Spinners       |
+
+## Project Structure
+
+```bash
+.
+├── component/         # Reusable UI components (TweetCard, TabButton, etc.)
+├── sections/          # Page-level components (Home, Login, Profile, etc.)
+├── constants/         # Static constants (tabs, styles)
+├── utils/             # API calls and helper functions
+└── App.tsx            # Route declarations
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧪 Running Locally
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Backend expected on: http://localhost:3000/api/v1
 ```
+
+## Roadmap (For Me)
+
+- [ ] Profile editing
+- [ ] Infinite scroll or "Load more" pagination
+- [ ] Like, Comment, Retweet
+- [ ] Hashtag Suggestion
+- [ ] Media uploads (images/GIFs)
+- [ ] Abuse Master (Ban the User)
+- [ ] Explore page with search
+- [ ] Advanced tweet search (hashtags, users)
+- [ ] Real-time updates (WebSockets) (v2)
+- [ ] Full notifications system (v2)
+- [ ] Abuse reporting tools (v2)
+
+## License
+
+MIT License. Use freely with attribution.
