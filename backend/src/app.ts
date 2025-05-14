@@ -12,6 +12,7 @@ import {
 } from "./routes";
 import dotenv from "dotenv";
 import cors from "cors";
+import { profileRouter } from "./routes/profile.route";
 //import { seedData } from "./seed/seed";
 
 dotenv.config();
@@ -50,3 +51,6 @@ app.use("/api/v1/notification", notificationRouter);
 
 // Media API
 app.use("/api/v1/media", mediaRouter);
+
+// Get User Profile
+app.use("/api/v1/profile", profileRouter);

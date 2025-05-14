@@ -4,6 +4,7 @@ import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa6";
 import { formatDistanceToNowStrict, format, isValid } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 type SingleTweetCardProps = {
   username: string;
@@ -14,6 +15,7 @@ type SingleTweetCardProps = {
   retweetCount: number;
   original?: boolean;
   id: string;
+  authorId: string;
 };
 
 const SingleTweetCard = ({
@@ -23,11 +25,13 @@ const SingleTweetCard = ({
   createdAt,
   likeCount,
   retweetCount,
+  authorId,
   id,
 }: SingleTweetCardProps) => {
   const createdDate = new Date(createdAt);
   const isDateValid = isValid(createdDate);
-  console.log(id);
+  const navigate = useNavigate();
+  //console.log(id);
 
   const timeAgo = isDateValid
     ? formatDistanceToNowStrict(createdDate, { addSuffix: true })
@@ -46,7 +50,12 @@ const SingleTweetCard = ({
       />
       <div className="max-w-[450px] lg:max-w-[600px] text-md">
         <div className="flex items-center gap-2 text-sm mb-1">
-          <h1 className="font-semibold">{username}</h1>
+          <h1
+            onClick={() => navigate(`/${authorId}`)}
+            className="font-semibold cursor-pointer"
+          >
+            {username}
+          </h1>
           <span>·</span>
           <span title={formattedDate}>{timeAgo}</span>
         </div>

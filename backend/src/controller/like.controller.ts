@@ -55,7 +55,7 @@ export class LikeController {
 
   // will change this
   async getLikedUsers(req: Request, res: Response) {
-    const { id, type } = req.body;
+    const { id, type } = req.query;
 
     console.log("Controller: Step-1 - Extracted tweetId from query params");
 
@@ -65,6 +65,7 @@ export class LikeController {
         id as string,
         type as string
       );
+
       console.log("Controller: Step-2 - Service response received");
 
       // Step-3: Return response

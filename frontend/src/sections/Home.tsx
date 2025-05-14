@@ -39,6 +39,7 @@ const Home: FC = () => {
               key={element?._id}
               id={element?._id}
               username={element?.author?.username || "rr"}
+              authorId={element?.author?._id || ""}
               commentCount={element?.commentCount}
               likeCount={element?.likeCount}
               content={element?.content}

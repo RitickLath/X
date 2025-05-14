@@ -7,7 +7,7 @@ const TabButton = ({ label, isActive, onClick }: propType) => {
   return (
     <div
       onClick={onClick}
-      className=" cursor-pointer hover:bg-[#181818] w-1/3 text-center"
+      className=" cursor-pointer border-0 hover:bg-[#181818] w-1/3 text-center"
     >
       <button
         className={`${"py-5 px-1 text-lg"} ${

@@ -12,6 +12,7 @@ import {
   Post,
   Profile,
   Signup,
+  User,
 } from "./sections/Section";
 
 const App = () => {
@@ -34,6 +35,9 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           {/* Shows the basic Feed page with whats happening*/}
           <Route path="/home" element={<Home />} />
+
+          {/* to User */}
+          <Route path="/:userId" element={<User />} />
 
           {/* Explore - Shows the trending hashtahgs with search functionality*/}
           <Route path="/explore" element={<Explore />} />
